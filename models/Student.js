@@ -38,10 +38,6 @@ const StudentSchema = new Schema({
     type: String,
     requried: true,
   },
-  rollNo: {
-    type: String,
-    requried: true,
-  },
   session: {
     type: String,
     requried: true,

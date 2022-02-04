@@ -14,6 +14,7 @@ import xlxs from "xlsx";
 // custom files
 import { adminAuth } from "../../middleware/auth.js";
 import Result from "../../models/Result.js";
+import Student from "../../models/Student.js";
 
 const router = express.Router();
 
@@ -38,7 +39,7 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({ storage: fileStorageEngine });
 
 // @route   POST /api/file/upload-result-file
-// @desc   upload and save file
+// @desc   upload and save result file
 // @access   private
 router.post(
   "/upload-result-file",
@@ -55,14 +56,56 @@ router.post(
 
     try {
       // parse data from excel
-      const parsedData = parseExcelData(uploadPath + "/" + file.filename, {
-        session,
-        semester,
-        branch,
-      });
+      const parsedData = parseResultExcelData(
+        uploadPath + "/" + file.filename,
+        {
+          session,
+          semester,
+          branch,
+        }
+      );
 
       // save to DB
       await Result.insertMany(parsedData);
+
+      res.status(200).json({ msg: "file upload successful." });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ msg: err.message });
+    }
+  }
+);
+
+// @route   POST /api/file/upload-student-file
+// @desc   upload and save student file
+// @access   private
+router.post(
+  "/upload-student-file",
+  [adminAuth, upload.single("file")],
+  async (req, res) => {
+    const file = req.file;
+    const { session, semester, branch } = req.body;
+
+    // check for valid filetype
+    if (!isFileValid(file.mimetype)) {
+      fs.unlinkSync(uploadPath + "/" + file.filename); // remove unwanted saved file
+      return res.status(400).json({ msg: "Only excel file accepted!" });
+    }
+
+    try {
+      // parse data from excel
+      const parsedData = parseStudentExcelData(
+        uploadPath + "/" + file.filename,
+        {
+          session,
+          semester,
+          branch,
+          createdBy: req.admin.email,
+        }
+      );
+
+      // save to DB
+      await Student.insertMany(parsedData);
 
       res.status(200).json({ msg: "file upload successful." });
     } catch (err) {
@@ -81,11 +124,11 @@ function isFileValid(mimetype) {
   return mimetype && validFileTypes.indexOf(mimetype) > -1;
 }
 
-// Import Excel File to MongoDB database
-function parseExcelData(filePath, formData) {
+// parse and filter result excel sheet
+function parseResultExcelData(filePath, formData) {
   // -> Read Excel File to Json Data
-  // get whole workbook
   try {
+    // get whole workbook
     const wb = xlxs.readFile(filePath);
 
     // get individual worksheets
@@ -142,6 +185,55 @@ function parseExcelData(filePath, formData) {
       newResultObj.percentage = parseFloat(percentage.toFixed(2));
 
       return newResultObj;
+    });
+
+    // remove file after parsing is done
+    fs.unlinkSync(filePath);
+
+    // console.log(util.inspect(newParsedData, false, null, true));
+    return newParsedData;
+  } catch (err) {
+    throw err;
+  }
+}
+
+// parse and filter student excel sheet
+function parseStudentExcelData(filePath, formData) {
+  // -> Read Excel File to Json Data
+  try {
+    // get whole workbook
+    const wb = xlxs.readFile(filePath);
+
+    // get individual worksheets
+    const studentWs = wb.Sheets["STUDENT DETAILS"];
+
+    // convert to JSON format
+    const students = xlxs.utils.sheet_to_json(studentWs);
+
+    // filter result data
+    const newParsedData = students.map((student) => {
+      // delete unwanted keys from obj
+      delete student["S.No."];
+
+      // create new student obj
+      const newStudentObj = {};
+
+      // personal details
+      newStudentObj.name = student["Name"];
+      newStudentObj.email = student["Email"];
+      newStudentObj.mobileNo = student["Moblie No."];
+      newStudentObj.fatherName = student["Father's Name"];
+      newStudentObj.motherName = student["Mother's Name"];
+      // acadamic details
+      newStudentObj.branch = formData.branch;
+      newStudentObj.semester = formData.semester;
+      newStudentObj.enrollNo = student["Enrollment No."];
+      newStudentObj.session = formData.session;
+      // others
+      newStudentObj.password = newStudentObj.enrollNo;
+      newStudentObj.createdBy = formData.createdBy;
+
+      return newStudentObj;
     });
 
     // remove file after parsing is done
