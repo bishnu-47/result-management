@@ -84,7 +84,7 @@ router.post(
   [adminAuth, upload.single("file")],
   async (req, res) => {
     const file = req.file;
-    const { session, semester, branch } = req.body;
+    const { session, branch } = req.body;
 
     // check for valid filetype
     if (!isFileValid(file.mimetype)) {
@@ -98,7 +98,6 @@ router.post(
         uploadPath + "/" + file.filename,
         {
           session,
-          semester,
           branch,
           createdBy: req.admin.email,
         }
@@ -226,7 +225,6 @@ function parseStudentExcelData(filePath, formData) {
       newStudentObj.motherName = student["Mother's Name"];
       // acadamic details
       newStudentObj.branch = formData.branch;
-      newStudentObj.semester = formData.semester;
       newStudentObj.enrollNo = student["Enrollment No."];
       newStudentObj.session = formData.session;
       // others

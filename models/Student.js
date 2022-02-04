@@ -30,10 +30,6 @@ const StudentSchema = new Schema({
     type: String,
     requried: true,
   },
-  semester: {
-    type: String,
-    requried: true,
-  },
   enrollNo: {
     type: String,
     requried: true,

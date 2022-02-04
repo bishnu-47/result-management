@@ -14,9 +14,10 @@ import LoadingPage from "./pages/utils/LoadingPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import CreateAdminPage from "./pages/admin/CreateAdminPage";
 import UploadResultPage from "./pages/admin/UploadResultPage";
+import UploadStudentsPage from "./pages/admin/UploadStudentsPage";
 
 const App = () => {
-  const { isAdmin, token, loading } = useSelector((state) => state.auth);
+  const { isAdmin, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,10 +38,14 @@ const App = () => {
                   element={<CreateAdminPage />}
                   exact
                 />
-
                 <Route
                   path="/admin/upload-result-file"
                   element={<UploadResultPage />}
+                  exact
+                />
+                <Route
+                  path="/admin/upload-student-file"
+                  element={<UploadStudentsPage />}
                   exact
                 />
                 <Route path="*" element={<PageNotFound />} exact />

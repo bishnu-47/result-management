@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Layout from "./Layout";
+import LoadingPage from "./utils/LoadingPage";
 
 const Home = () => {
   const { loading, authorized, isAdmin } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <>
       {loading ? (
-        "Loading"
+        <LoadingPage />
       ) : isAdmin ? (
         <Layout>
           <span>Admin page</span>

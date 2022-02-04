@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addErrorMsg } from "./messagesSlice";
 
 const initialState = {
   token: localStorage.getItem("token"),
