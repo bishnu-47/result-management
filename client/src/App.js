@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Home from "./pages/Home";
 import Alerts from "./components/Alerts";
-import { checkAdmin } from "./redux/authSlice";
+import { checkAdmin, checkStudent } from "./redux/authSlice";
 
 import StudentLoginPage from "./pages/StudentLoginPage";
 import PageNotFound from "./pages/utils/PageNotFound";
@@ -21,7 +21,11 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkAdmin());
+    const checkWhoUserIs = () => {
+      dispatch(checkAdmin());
+      dispatch(checkStudent());
+    };
+    checkWhoUserIs();
   }, []);
 
   return (

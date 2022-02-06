@@ -9,7 +9,9 @@ const router = express.Router();
 // @access   private
 router.get("/", adminAuth, async (req, res) => {
   try {
-    const students = await Student.find({}, { password: 0 }).sort({ date: -1 });
+    const students = await Student.find({}, { password: 0 }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(students);
   } catch (err) {
     res.status(500).json({ success: false, msg: error.message });

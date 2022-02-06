@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { loginUser } from "../redux/authSlice";
+import { studentLogin } from "../redux/authSlice";
 
 const StudentLoginPage = () => {
   const { authorized } = useSelector((state) => state.auth);
@@ -18,45 +18,91 @@ const StudentLoginPage = () => {
     if (authorized) navigate("/");
   }, [authorized]);
 
-  function handleUserLogin(e) {
+  function handleStudentLogin(e) {
     e.preventDefault();
 
-    const user = {
-      email: enrollRef.current.value,
+    const student = {
+      enrollNo: enrollRef.current.value,
       password: passwordRef.current.value,
     };
 
-    dispatch(loginUser(user));
+    dispatch(studentLogin(student));
   }
 
   return (
-    <>
-      <form
-        onSubmit={handleUserLogin}
-        className="w-1/4 mx-auto py-5 my-5 bg-gray-300 text-center rounded-md"
-      >
-        <div>
-          <label className="label justify-center">Email</label>
-          <input type="email" className="input" ref={enrollRef} />
+    <div className="flex items-center min-h-screen bg-white dark:bg-gray-900">
+      <div className="container mx-auto">
+        <div className="max-w-md mx-auto my-10">
+          <div className="text-center">
+            <h1 className="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
+              Sign in
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400">Student Sign In</p>
+          </div>
+          <div className="m-7">
+            <form onSubmit={handleStudentLogin}>
+              <div className="mb-6">
+                {/* Enrollment Input : STARTS */}
+                <label className="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                  Enrollment Number
+                </label>
+                <input
+                  type="text"
+                  ref={enrollRef}
+                  placeholder="AJU/123456"
+                  className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                />
+              </div>
+              {/* Enrollment Input : ENDS */}
+
+              {/* Password : STARTS */}
+              <div className="mb-6">
+                <div className="flex justify-between mb-2">
+                  <label className="text-sm text-gray-600 dark:text-gray-400">
+                    Password
+                  </label>
+                  {/* <a
+                    href="#!"
+                    className="text-sm text-gray-400 focus:outline-none focus:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-300"
+                  >
+                    Forgot password?
+                  </a> */}
+                </div>
+                <input
+                  type="password"
+                  ref={passwordRef}
+                  placeholder="Your Password"
+                  className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                />
+              </div>
+              {/* Password : ENDS */}
+
+              {/* Sign In btn : STARTS */}
+              <div className="mb-6">
+                <button
+                  type="submit"
+                  className="w-full px-3 py-4 text-white bg-indigo-500 rounded-md font-bold tracking-wide hover:bg-indigo-600 focus:outline-none"
+                >
+                  Sign in
+                </button>
+              </div>
+              {/* Sign In btn : ENDS */}
+
+              <p className="text-sm text-center text-gray-400">
+                Not a Student? Click for{" "}
+                <Link
+                  to="/admin/login"
+                  className="text-indigo-400 focus:outline-none hover:underline hover:text-indigo-500 dark:focus:border-indigo-800"
+                >
+                  Admin Login
+                </Link>
+                .
+              </p>
+            </form>
+          </div>
         </div>
-
-        <div>
-          <label className="label justify-center">Password</label>
-          <input type="password" className="input" ref={passwordRef} />
-        </div>
-
-        <button type="submit" className="btn mt-5">
-          Login
-        </button>
-
-        <span className="block mt-4 text-sm">
-          Click for{" "}
-          <Link to="/admin/login" className="underline pointer">
-            Admin Login
-          </Link>
-        </span>
-      </form>
-    </>
+      </div>
+    </div>
   );
 };
 

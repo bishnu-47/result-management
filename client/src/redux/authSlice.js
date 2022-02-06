@@ -30,7 +30,7 @@ export const adminLogin = createAsyncThunk(
 );
 
 export const checkAdmin = createAsyncThunk(
-  "user/check-admin",
+  "admin/check-admin",
   async (_, thunkAPI) => {
     try {
       const config = {
@@ -50,9 +50,30 @@ export const checkAdmin = createAsyncThunk(
   }
 );
 
-export const loginUser = createAsyncThunk(
-  "user/login",
-  async (user, thunkAPI) => {
+export const checkStudent = createAsyncThunk(
+  "student/check-student",
+  async (_, thunkAPI) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + thunkAPI.getState().auth.token,
+        },
+      };
+
+      const response = await axios.get("/api/auth/check-student", config);
+      return response.data;
+    } catch (err) {
+      if (err.response)
+        return thunkAPI.rejectWithValue({ error: err.response.data.msg });
+      else return thunkAPI.rejectWithValue({ error: err.message });
+    }
+  }
+);
+
+export const studentLogin = createAsyncThunk(
+  "student/login",
+  async (student, thunkAPI) => {
     try {
       const config = {
         headers: {
@@ -60,7 +81,11 @@ export const loginUser = createAsyncThunk(
         },
       };
 
-      const response = await axios.post("/api/auth/login", user, config);
+      const response = await axios.post(
+        "/api/auth/student/login",
+        student,
+        config
+      );
       return response.data;
     } catch (err) {
       if (err.response)
@@ -108,33 +133,56 @@ export const authSlice = createSlice({
       state.loading = false;
     });
 
-    // login user
-    builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+    // student login
+    builder.addCase(studentLogin.pending, (state, { payload }) => {
+      state.loading = true;
+    });
+
+    builder.addCase(studentLogin.fulfilled, (state, { payload }) => {
       localStorage.setItem("token", payload.token);
 
       state.token = payload.token;
       state.authorized = true;
+      state.loading = false;
+      state.isAdmin = false;
     });
 
-    builder.addCase(loginUser.rejected, (state, { payload }) => {
+    builder.addCase(studentLogin.rejected, (state, { payload }) => {
       localStorage.removeItem("token");
 
       state.authorized = false;
       state.token = null;
+      state.loading = false;
     });
 
     // checkAdmin
+    builder.addCase(checkAdmin.pending, (state, { payload }) => {
+      state.loading = true;
+    });
+
     builder.addCase(checkAdmin.fulfilled, (state, { payload }) => {
       state.isAdmin = true;
       state.authorized = true;
       state.loading = false;
     });
 
-    builder.addCase(checkAdmin.pending, (state, { payload }) => {
+    builder.addCase(checkAdmin.rejected, (state, { payload }) => {
+      state.isAdmin = false;
+      state.loading = false;
+    });
+
+    // check Student
+    builder.addCase(checkStudent.pending, (state, { payload }) => {
       state.loading = true;
     });
 
-    builder.addCase(checkAdmin.rejected, (state, { payload }) => {
+    builder.addCase(checkStudent.fulfilled, (state, { payload }) => {
+      state.isAdmin = false;
+      state.authorized = true;
+      state.loading = false;
+    });
+
+    builder.addCase(checkStudent.rejected, (state, { payload }) => {
       state.isAdmin = false;
       state.loading = false;
     });

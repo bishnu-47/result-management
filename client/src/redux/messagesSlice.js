@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { adminLogin, loginUser } from "./authSlice";
+import { adminLogin, studentLogin } from "./authSlice";
 
 const initialState = {
   error: null,
@@ -50,12 +50,12 @@ export const messagesSlice = createSlice({
       state.error = payload.error;
     });
 
-    // TODO: student
-    builder.addCase(loginUser.fulfilled, (state, { payload }) => {
-      state.error = payload.msg;
+    // student
+    builder.addCase(studentLogin.fulfilled, (state, { payload }) => {
+      state.success = payload.msg;
     });
 
-    builder.addCase(loginUser.rejected, (state, { payload }) => {
+    builder.addCase(studentLogin.rejected, (state, { payload }) => {
       state.error = payload.error;
     });
   },
