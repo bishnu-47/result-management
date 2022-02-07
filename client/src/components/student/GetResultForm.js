@@ -60,73 +60,83 @@ const GetResultForm = () => {
 
   return (
     <>
-      <form onSubmit={onGetResultSubmit}>
-        {/* Enroll input: STARTS */}
-        <div className="mb-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Enrollment Number
-          </label>
-          <input
-            type="text"
-            ref={enrollRef}
-            placeholder="AJU/191234"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
-        {/* Enroll input: ENDS */}
+      <form className="w-11/12 mx-auto" onSubmit={onGetResultSubmit}>
+        <div className="flex flex-wrap mx-1 overflow-hidden sm:-mx-px md:-mx-2 lg:-mx-2 xl:-mx-3">
+          {/* Enroll input: STARTS */}
+          <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
+            <div className="mb-6">
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Enrollment Number
+              </label>
+              <input
+                type="text"
+                ref={enrollRef}
+                placeholder="AJU/191234"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+              />
+            </div>
+          </div>
+          {/* Enroll input: ENDS */}
 
-        {/* branch select: STARTS */}
-        <div className="mb-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Branch
-          </label>
-          <select
-            className="form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            ref={branchRef}
-            required
-          >
-            <option defaultValue>Select Branch</option>
-            <option value="BCA">BCA</option>
-            <option value="BBA">BBA</option>
-            <option value="BCom">BCom</option>
-          </select>
-        </div>
-        {/* Branch select: ENDS */}
+          {/* Session input: STARTS */}
+          <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
+            <div className="mb-6">
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Session
+              </label>
+              <input
+                type="text"
+                ref={sessionRef}
+                placeholder="2015-18"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+              />
+            </div>
+          </div>
+          {/* Session input: STARTS */}
 
-        {/* Semester select: STARTS */}
-        <div className="mb-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Semester
-          </label>
-          <select
-            className="form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            ref={semesterRef}
-            required
-          >
-            <option defaultValue>Select Semester</option>
-            <option value="1">I</option>
-            <option value="2">II</option>
-            <option value="3">III</option>
-            <option value="4">IV</option>
-          </select>
-        </div>
-        {/* Semester select: ENDS */}
+          {/* branch select: STARTS */}
+          <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
+            <div className="mb-6">
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Branch
+              </label>
+              <select
+                className="form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                ref={branchRef}
+                required
+              >
+                <option defaultValue>Select Branch</option>
+                <option value="BCA">BCA</option>
+                <option value="BBA">BBA</option>
+                <option value="BCom">BCom</option>
+              </select>
+            </div>
+          </div>
+          {/* Branch select: ENDS */}
 
-        {/* Session input: STARTS */}
-        <div className="mb-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Session
-          </label>
-          <input
-            type="text"
-            ref={sessionRef}
-            placeholder="2015-18"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
+          {/* Semester select: STARTS */}
+          <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
+            <div className="mb-6">
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Semester
+              </label>
+              <select
+                className="form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                ref={semesterRef}
+                required
+              >
+                <option defaultValue>Select Semester</option>
+                <option value="1">I</option>
+                <option value="2">II</option>
+                <option value="3">III</option>
+                <option value="4">IV</option>
+              </select>
+            </div>
+          </div>
+          {/* Semester select: ENDS */}
         </div>
-        {/* Session input: STARTS */}
 
         {/* Upload Btn: STARTS */}
         {isLoading ? (

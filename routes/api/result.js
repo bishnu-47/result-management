@@ -10,11 +10,13 @@ const router = express.Router();
 // @desc   get Result data based on given datas
 // @access   private
 router.post("/", studentAuth, async (req, res) => {
-  const { enrollNo, session, semester, branch } = req.body;
+  const { semester, branch } = req.body;
+  const session = req.body.session.trim();
+  const enrollNo = req.body.enrollNo.trim();
 
   // check if all data is passed
   if (!enrollNo || !session || !semester || !branch) {
-    return res.status(401).json({ msg: "Provide all details!" });
+    return res.status(400).json({ msg: "Provide all details!" });
   }
 
   // find result data
@@ -46,10 +48,15 @@ router.post("/", studentAuth, async (req, res) => {
     return res.status(404).json({ msg: "No Student found for provided data!" });
   }
 
+  // check if loged In student is asking for his result only
+  if (req.student.enrollNo !== enrollNo) {
+    return res.status(401).json({ msg: "Can't access another's result!" });
+  }
+
   // result & student data found at this point
   res
     .status(200)
-    .json({ msg: "Result data found.", result: result, student: student });
+    .json({ msg: "Result Generated.", result: result, student: student });
 });
 
 export default router;

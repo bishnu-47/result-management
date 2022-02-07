@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Layout from "./Layout";
 import LoadingPage from "./utils/LoadingPage";
+import GenerateResultPage from "./student/GenerateResultPage";
 
 const Home = () => {
   const { loading, authorized, isAdmin } = useSelector((state) => state.auth);
@@ -24,9 +25,7 @@ const Home = () => {
           <span>Admin page</span>
         </Layout>
       ) : (
-        <Layout>
-          <span>Student Page</span>
-        </Layout>
+        <GenerateResultPage />
       )}
     </>
   );

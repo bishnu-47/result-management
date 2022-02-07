@@ -8,7 +8,7 @@ import { checkAdmin, checkStudent } from "./redux/authSlice";
 
 // student realeted
 import StudentLoginPage from "./pages/StudentLoginPage";
-import GetResultPage from "./pages/student/GetResultPage";
+import GenerateResultPage from "./pages/student/GenerateResultPage";
 // admin releated
 import AdminLoginPage from "./pages/AdminLoginPage";
 import CreateAdminPage from "./pages/admin/CreateAdminPage";
@@ -54,16 +54,11 @@ const App = () => {
                   element={<UploadStudentsPage />}
                   exact
                 />
-                <Route path="*" element={<PageNotFound />} exact />
               </>
             )}
             {isStudent && (
               <>
-                <Route
-                  path="/student/get-result"
-                  element={<GetResultPage />}
-                  exact
-                />
+                <Route path="/" element={<GenerateResultPage />} exact />
               </>
             )}
             <Route path="/admin/login" element={<AdminLoginPage />} exact />
