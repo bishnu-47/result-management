@@ -160,7 +160,7 @@ router.post("/student/login", async (req, res) => {
 
         return res.status(200).json({
           token,
-          admin: {
+          student: {
             id: student.id,
             name: student.name,
             enrollNo: student.enrollNo,

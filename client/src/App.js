@@ -6,18 +6,20 @@ import Home from "./pages/Home";
 import Alerts from "./components/Alerts";
 import { checkAdmin, checkStudent } from "./redux/authSlice";
 
+// student realeted
 import StudentLoginPage from "./pages/StudentLoginPage";
-import PageNotFound from "./pages/utils/PageNotFound";
-import LoadingPage from "./pages/utils/LoadingPage";
-
+import GetResultPage from "./pages/student/GetResultPage";
 // admin releated
 import AdminLoginPage from "./pages/AdminLoginPage";
 import CreateAdminPage from "./pages/admin/CreateAdminPage";
 import UploadResultPage from "./pages/admin/UploadResultPage";
 import UploadStudentsPage from "./pages/admin/UploadStudentsPage";
+// other pages
+import PageNotFound from "./pages/utils/PageNotFound";
+import LoadingPage from "./pages/utils/LoadingPage";
 
 const App = () => {
-  const { isAdmin, loading } = useSelector((state) => state.auth);
+  const { isAdmin, loading, isStudent } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -53,6 +55,15 @@ const App = () => {
                   exact
                 />
                 <Route path="*" element={<PageNotFound />} exact />
+              </>
+            )}
+            {isStudent && (
+              <>
+                <Route
+                  path="/student/get-result"
+                  element={<GetResultPage />}
+                  exact
+                />
               </>
             )}
             <Route path="/admin/login" element={<AdminLoginPage />} exact />

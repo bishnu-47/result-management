@@ -5,6 +5,7 @@ const initialState = {
   token: localStorage.getItem("token"),
   loading: null,
   isAdmin: null,
+  isStudent: null,
   authorized: null,
 };
 
@@ -144,7 +145,7 @@ export const authSlice = createSlice({
       state.token = payload.token;
       state.authorized = true;
       state.loading = false;
-      state.isAdmin = false;
+      state.isStudent = true;
     });
 
     builder.addCase(studentLogin.rejected, (state, { payload }) => {
@@ -153,6 +154,7 @@ export const authSlice = createSlice({
       state.authorized = false;
       state.token = null;
       state.loading = false;
+      state.isStudent = null;
     });
 
     // checkAdmin
@@ -177,13 +179,13 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(checkStudent.fulfilled, (state, { payload }) => {
-      state.isAdmin = false;
+      state.isStudent = true;
       state.authorized = true;
       state.loading = false;
     });
 
     builder.addCase(checkStudent.rejected, (state, { payload }) => {
-      state.isAdmin = false;
+      state.isStudent = null;
       state.loading = false;
     });
   },

@@ -7,6 +7,7 @@ import authRoute from "./routes/api/auth.js";
 import studentRoute from "./routes/api/student.js";
 import adminRoute from "./routes/api/admin.js";
 import fileRoute from "./routes/api/file.js";
+import resultRoute from "./routes/api/result.js";
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/student", studentRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api/file", fileRoute);
+app.use("/api/result", resultRoute);
 
 // server static assets if in production
 if (process.env.NODE_ENV === "production") {

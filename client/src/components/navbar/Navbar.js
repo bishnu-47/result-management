@@ -20,7 +20,10 @@ export default function Navbar() {
     { link: "/admin/upload-student-file", name: "Uplod Students File" },
   ];
 
-  const studentNavList = [{ link: "/", name: "Home" }];
+  const studentNavList = [
+    { link: "/", name: "Home" },
+    { link: "/student/get-result", name: "Get Result" },
+  ];
 
   return (
     <div className="min-h-screen flex flex-row bg-gray-100">
