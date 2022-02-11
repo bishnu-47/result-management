@@ -32,6 +32,10 @@ const ResultSchema = new Schema({
     type: String,
     required: true,
   },
+  examType: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

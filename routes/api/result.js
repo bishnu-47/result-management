@@ -10,7 +10,7 @@ const router = express.Router();
 // @desc   get Result data based on given datas
 // @access   private
 router.post("/", studentAuth, async (req, res) => {
-  const { semester, branch } = req.body;
+  const { semester, branch, examType } = req.body;
   const session = req.body.session.trim();
   const enrollNo = req.body.enrollNo.trim();
 
@@ -25,6 +25,7 @@ router.post("/", studentAuth, async (req, res) => {
     session: session,
     semester: semester,
     branch: branch,
+    examType: examType,
   });
 
   // if no result found

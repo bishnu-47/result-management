@@ -46,7 +46,12 @@ router.post(
   [adminAuth, upload.single("file")],
   async (req, res) => {
     const file = req.file;
-    const { session, semester, branch } = req.body;
+    const { session, semester, branch, examType } = req.body;
+
+    // check if All details are passed
+    if (!session || !semester || !branch || !examType || !file) {
+      return res.status(400).json({ msg: "Provide all data!" });
+    }
 
     // check for valid filetype
     if (!isFileValid(file.mimetype)) {
@@ -62,6 +67,7 @@ router.post(
           session,
           semester,
           branch,
+          examType,
         }
       );
 
@@ -180,6 +186,7 @@ function parseResultExcelData(filePath, formData) {
       newResultObj.session = formData.session;
       newResultObj.branch = formData.branch;
       newResultObj.semester = formData.semester;
+      newResultObj.examType = formData.examType;
       newResultObj.subjects = subjects;
       newResultObj.percentage = parseFloat(percentage.toFixed(2));
 
@@ -227,6 +234,7 @@ function parseStudentExcelData(filePath, formData) {
       newStudentObj.branch = formData.branch;
       newStudentObj.enrollNo = student["Enrollment No."];
       newStudentObj.session = formData.session;
+
       // others
       newStudentObj.password = newStudentObj.enrollNo;
       newStudentObj.createdBy = formData.createdBy;

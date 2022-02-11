@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  loading: null,
+  loading: true,
   isAdmin: null,
   isStudent: null,
   authorized: null,

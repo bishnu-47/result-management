@@ -25,7 +25,7 @@ const AdminLoginPage = () => {
     };
 
     dispatch(adminLogin(admin));
-    navigate("/");
+    navigate("/admin/upload-result-file");
   }
 
   return (

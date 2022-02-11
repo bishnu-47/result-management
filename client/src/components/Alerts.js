@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeAllMsg } from "../redux/messagesSlice";
 import CrossIcon from "./utils/CrossIcon";
@@ -8,6 +8,12 @@ const Alerts = () => {
     (state) => state.messages
   );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return setTimeout(() => {
+      dispatch(removeAllMsg());
+    }, 5000);
+  }, [error, info, warning, success]);
 
   function handleRemoveMsg() {
     dispatch(removeAllMsg());

@@ -15,9 +15,9 @@ export default function Navbar() {
   }
 
   const adminNavList = [
-    { link: "/admin/create-admin", name: "Create Admin" },
     { link: "/admin/upload-result-file", name: "Upload Result" },
     { link: "/admin/upload-student-file", name: "Uplod Students File" },
+    { link: "/admin/create-admin", name: "Create Admin" },
   ];
 
   const studentNavList = [{ link: "/", name: "Generate Result" }];
@@ -27,7 +27,7 @@ export default function Navbar() {
       {/* LOGO starts */}
       <div className="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden bg-gray-50">
         <div className="flex p-4 items-center justify-center h-20 shadow-md">
-          <img src="/logos/arka-jain-logo.png" />
+          <img src="/logos/arka-jain-logo.png" alt="Arka Jain University" />
         </div>
         {/* LOGO Ends */}
 
@@ -56,11 +56,5 @@ export default function Navbar() {
         {/* LogIn/LogOut Button ends */}
       </div>
     </>
-  );
-
-  return (
-    <div className="w-full h-full bg-purple-400">
-      <div className="btn"></div>
-    </div>
   );
 }

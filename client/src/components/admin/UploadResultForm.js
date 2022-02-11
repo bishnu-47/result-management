@@ -2,7 +2,12 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import { addErrorMsg, addSuccessMsg } from "../../redux/messagesSlice";
+import {
+  addErrorMsg,
+  addSuccessMsg,
+  addWarningMsg,
+} from "../../redux/messagesSlice";
+import { isValidSessionFormat } from "../../helpers/helperFunctions.js";
 import LoadingButton from "../utils/LoadingButton";
 
 const UploadResultForm = () => {
@@ -14,6 +19,7 @@ const UploadResultForm = () => {
   const branchRef = useRef();
   const sessionRef = useRef();
   const semesterRef = useRef();
+  const examTypeRef = useRef();
 
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -22,15 +28,22 @@ const UploadResultForm = () => {
     setFile(e.target.files[0]);
   };
 
-  const onResultSubmit = async (e) => {
+  async function onResultSubmit(e) {
     e.preventDefault();
     setIsUploading(true);
+
+    // check session input
+    if (!isValidSessionFormat(sessionRef.current.value)) {
+      setIsUploading(false);
+      return dispatch(addWarningMsg("Provide correct session format!"));
+    }
 
     // create form data
     const formData = new FormData();
     formData.append("branch", branchRef.current.value);
     formData.append("semester", semesterRef.current.value);
     formData.append("session", sessionRef.current.value);
+    formData.append("examType", examTypeRef.current.value);
     formData.append("file", file);
 
     try {
@@ -53,7 +66,7 @@ const UploadResultForm = () => {
         dispatch(addErrorMsg(err.response.data.msg));
       }
     }
-  };
+  }
 
   return (
     <>
@@ -110,6 +123,23 @@ const UploadResultForm = () => {
         </div>
         {/* Session input: STARTS */}
 
+        {/* Exam Type select: STARTS */}
+        <div className="mb-6">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Exam Type
+          </label>
+          <select
+            className="form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            ref={examTypeRef}
+            required
+          >
+            <option defaultValue>Select Exam Type</option>
+            <option value="REGULAR">REGULAR</option>
+            <option value="BACKLOG">BACKLOG</option>
+          </select>
+        </div>
+        {/* Exam Type Select: ENDS */}
+
         {/* file upload: STARTS */}
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -128,11 +158,13 @@ const UploadResultForm = () => {
 
         {/* Upload Btn: STARTS */}
         {isUploading ? (
-          <LoadingButton />
+          <div className="mt-6">
+            <LoadingButton />
+          </div>
         ) : (
           <button
             type="submit"
-            className="text-white bg-gray-800 mt-5 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700"
+            className="text-white bg-gray-800 mt-6 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700"
           >
             Upload
           </button>

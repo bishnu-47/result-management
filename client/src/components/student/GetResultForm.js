@@ -2,7 +2,12 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import { addErrorMsg, addSuccessMsg } from "../../redux/messagesSlice";
+import { isValidSessionFormat } from "../../helpers/helperFunctions.js";
+import {
+  addErrorMsg,
+  addSuccessMsg,
+  addWarningMsg,
+} from "../../redux/messagesSlice";
 import LoadingButton from "../utils/LoadingButton";
 import Result from "./Result";
 
@@ -18,6 +23,7 @@ const GetResultForm = () => {
   const branchRef = useRef();
   const sessionRef = useRef();
   const semesterRef = useRef();
+  const examTypeRef = useRef();
 
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -26,12 +32,19 @@ const GetResultForm = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    // check session input
+    if (!isValidSessionFormat(sessionRef.current.value)) {
+      setIsLoading(false);
+      return dispatch(addWarningMsg("Provide correct session format!"));
+    }
+
     // create form data
     const formData = {
       enrollNo: enrollRef.current.value,
       branch: branchRef.current.value,
       session: sessionRef.current.value,
       semester: semesterRef.current.value,
+      examTypeRef: examTypeRef.current.value,
     };
 
     try {
@@ -136,6 +149,25 @@ const GetResultForm = () => {
             </div>
           </div>
           {/* Semester select: ENDS */}
+
+          {/* Exam Type select: STARTS */}
+          <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
+            <div className="mb-6">
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Exam Type
+              </label>
+              <select
+                className="form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                ref={examTypeRef}
+                required
+              >
+                <option defaultValue>Select Exam Type</option>
+                <option value="REGULAR">REGULAR</option>
+                <option value="BACKLOG">BACKLOG</option>
+              </select>
+            </div>
+          </div>
+          {/* Exam Type select: ENDS */}
         </div>
 
         {/* Upload Btn: STARTS */}

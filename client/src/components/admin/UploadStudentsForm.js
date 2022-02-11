@@ -2,7 +2,12 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import { addErrorMsg, addSuccessMsg } from "../../redux/messagesSlice";
+import { isValidSessionFormat } from "../../helpers/helperFunctions.js";
+import {
+  addErrorMsg,
+  addSuccessMsg,
+  addWarningMsg,
+} from "../../redux/messagesSlice";
 import LoadingButton from "../utils/LoadingButton";
 
 const UploadStudentsForm = () => {
@@ -24,6 +29,12 @@ const UploadStudentsForm = () => {
   const onStudentsDetailsSubmit = async (e) => {
     e.preventDefault();
     setIsUploading(true);
+
+    // check session input
+    if (!isValidSessionFormat(sessionRef.current.value)) {
+      setIsUploading(false);
+      return dispatch(addWarningMsg("Provide correct session format!"));
+    }
 
     // create form data
     const formData = new FormData();
@@ -107,11 +118,13 @@ const UploadStudentsForm = () => {
 
         {/* Upload Btn: STARTS */}
         {isUploading ? (
-          <LoadingButton />
+          <div className="mt-6">
+            <LoadingButton />
+          </div>
         ) : (
           <button
             type="submit"
-            className="text-white mt-5 bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700"
+            className="text-white mt-6 bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700"
           >
             Upload
           </button>
