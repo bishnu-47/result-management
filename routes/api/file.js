@@ -132,7 +132,7 @@ router.get("/get-student-file-template", adminAuth, (req, res) => {
       "templates",
       "student-file-template.xlsx"
     );
-    return res.status(200).sendFile(filePath);
+    return res.status(200).download(filePath);
   } catch (err) {
     return res.status(500).json({ msg: "File Not Found!" });
   }
@@ -150,7 +150,7 @@ router.get("/get-student-file-sample", adminAuth, (req, res) => {
       "samples",
       "student-file-sample.xlsx"
     );
-    return res.status(200).sendFile(filePath);
+    return res.status(200).download(filePath);
   } catch (err) {
     return res.status(500).json({ msg: "File Not Found!" });
   }
@@ -168,7 +168,7 @@ router.get("/get-result-file-template", adminAuth, (req, res) => {
       "templates",
       "result-file-template.xlsx"
     );
-    return res.status(200).sendFile(filePath);
+    return res.download(filePath);
   } catch (err) {
     return res.status(500).json({ msg: "File Not Found!" });
   }
@@ -186,7 +186,7 @@ router.get("/get-result-file-sample", adminAuth, (req, res) => {
       "samples",
       "result-file-sample.xlsx"
     );
-    return res.status(200).sendFile(filePath);
+    return res.status(200).download(filePath);
   } catch (err) {
     return res.status(500).json({ msg: "File Not Found!" });
   }

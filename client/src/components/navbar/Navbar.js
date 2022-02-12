@@ -17,6 +17,7 @@ export default function Navbar() {
   const adminNavList = [
     { link: "/admin/upload-result-file", name: "Upload Result" },
     { link: "/admin/upload-student-file", name: "Uplod Students File" },
+    { link: "/admin/get-files", name: "Download Files" },
     { link: "/admin/create-admin", name: "Create Admin" },
   ];
 
@@ -25,7 +26,7 @@ export default function Navbar() {
   return (
     <>
       {/* LOGO starts */}
-      <div className="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden bg-gray-50">
+      <div className="flex flex-col w-56 h-screen bg-white rounded-r-3xl overflow-hidden bg-gray-50">
         <div className="flex p-4 items-center justify-center h-20 shadow-md">
           <img src="/logos/arka-jain-logo.png" alt="Arka Jain University" />
         </div>

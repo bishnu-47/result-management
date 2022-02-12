@@ -14,6 +14,8 @@ import AdminLoginPage from "./pages/AdminLoginPage";
 import CreateAdminPage from "./pages/admin/CreateAdminPage";
 import UploadResultPage from "./pages/admin/UploadResultPage";
 import UploadStudentsPage from "./pages/admin/UploadStudentsPage";
+import GetFilesPage from "./pages/admin/GetFilesPage";
+
 // other pages
 import PageNotFound from "./pages/utils/PageNotFound";
 import LoadingPage from "./pages/utils/LoadingPage";
@@ -40,11 +42,6 @@ const App = () => {
             {isAdmin && (
               <>
                 <Route
-                  path="/admin/create-admin"
-                  element={<CreateAdminPage />}
-                  exact
-                />
-                <Route
                   path="/admin/upload-result-file"
                   element={<UploadResultPage />}
                   exact
@@ -52,6 +49,16 @@ const App = () => {
                 <Route
                   path="/admin/upload-student-file"
                   element={<UploadStudentsPage />}
+                  exact
+                />
+                <Route
+                  path="/admin/get-files"
+                  element={<GetFilesPage />}
+                  exact
+                />
+                <Route
+                  path="/admin/create-admin"
+                  element={<CreateAdminPage />}
                   exact
                 />
               </>
