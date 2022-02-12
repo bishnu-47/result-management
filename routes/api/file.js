@@ -120,6 +120,78 @@ router.post(
   }
 );
 
+// @route   POST /api/file/get-student-file-template
+// @desc   get template for Student file
+// @access   private
+router.get("/get-student-file-template", adminAuth, (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "../../",
+      "files",
+      "templates",
+      "student-file-template.xlsx"
+    );
+    return res.status(200).sendFile(filePath);
+  } catch (err) {
+    return res.status(500).json({ msg: "File Not Found!" });
+  }
+});
+
+// @route   POST /api/file/get-student-file-sample
+// @desc   get sample for Student file
+// @access   private
+router.get("/get-student-file-sample", adminAuth, (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "../../",
+      "files",
+      "samples",
+      "student-file-sample.xlsx"
+    );
+    return res.status(200).sendFile(filePath);
+  } catch (err) {
+    return res.status(500).json({ msg: "File Not Found!" });
+  }
+});
+
+// @route   POST /api/file/get-result-file-template
+// @desc   get template for Result file
+// @access   private
+router.get("/get-result-file-template", adminAuth, (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "../../",
+      "files",
+      "templates",
+      "result-file-template.xlsx"
+    );
+    return res.status(200).sendFile(filePath);
+  } catch (err) {
+    return res.status(500).json({ msg: "File Not Found!" });
+  }
+});
+
+// @route   POST /api/file/get-result-file-sample
+// @desc   get sample for Result file
+// @access   private
+router.get("/get-result-file-sample", adminAuth, (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "../../",
+      "files",
+      "samples",
+      "result-file-sample.xlsx"
+    );
+    return res.status(200).sendFile(filePath);
+  } catch (err) {
+    return res.status(500).json({ msg: "File Not Found!" });
+  }
+});
+
 // function to check file extention
 function isFileValid(mimetype) {
   const validFileTypes = [
@@ -140,12 +212,22 @@ function parseResultExcelData(filePath, formData) {
     const resultWs = wb.Sheets["RESULT"];
     const legendWs = wb.Sheets["LEGEND"];
 
+    // check if worksheets are avaliable
+    if (!resultWs || !legendWs) {
+      throw new Error("Wrong Worksheet format!");
+    }
+
     // convert to JSON format
     const result = xlxs.utils.sheet_to_json(resultWs);
     const legend = xlxs.utils.sheet_to_json(legendWs);
 
     // filter result data
     const newParsedData = result.map((res) => {
+      // check if required columns are given
+      if (!res["Enrollment No."] || !res["Student Name"]) {
+        throw new Error("Invalid Worksheet format!");
+      }
+
       // store enroll & name
       const enroll = res["Enrollment No."];
       const name = res["Student Name"];
@@ -212,12 +294,28 @@ function parseStudentExcelData(filePath, formData) {
 
     // get individual worksheets
     const studentWs = wb.Sheets["STUDENT DETAILS"];
+    //check if worksheet is present
+    if (!studentWs) {
+      throw new Error("Invalid worksheet format!");
+    }
 
     // convert to JSON format
     const students = xlxs.utils.sheet_to_json(studentWs);
 
     // filter result data
     const newParsedData = students.map((student) => {
+      //check if required columns are given
+      if (
+        !student["Name"] ||
+        !student["Email"] ||
+        !student["Moblie No."] ||
+        !student["Father's Name"] ||
+        !student["Mother's Name"] ||
+        !student["Enrollment No."]
+      ) {
+        throw new Error("Invalid worksheet format!");
+      }
+
       // delete unwanted keys from obj
       delete student["S.No."];
 
