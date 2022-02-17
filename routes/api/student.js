@@ -58,10 +58,10 @@ router.delete("/:id", adminAuth, async (req, res) => {
   }
 });
 
-// @route   POST /api/student/password/reset
+// @route   POST /api/student/password/change
 // @desc   reset student password
 // @access   private
-router.post("/password/reset", studentAuth, async (req, res) => {
+router.post("/password/change", studentAuth, async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
 
@@ -76,8 +76,15 @@ router.post("/password/reset", studentAuth, async (req, res) => {
         .json({ msg: "Password length must be greater than 6!" });
     }
 
-    // check if currentPassword is same
+    // check if currentPassword matches
     const student = await Student.findById(req.student._id);
+
+    // check if new password is same as prev
+    if (student.password === newPassword) {
+      return res
+        .status(400)
+        .json({ msg: "New password cannot be same as previous!" });
+    }
 
     if (currentPassword !== student.password) {
       return res.status(400).json({ msg: "Incorrect password!" });

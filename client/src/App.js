@@ -9,6 +9,7 @@ import { checkAdmin, checkStudent } from "./redux/authSlice";
 // student realeted
 import StudentLoginPage from "./pages/StudentLoginPage";
 import GenerateResultPage from "./pages/student/GenerateResultPage";
+import ChangePasswordPage from "./pages/student/ChangePasswordPage";
 // admin releated
 import AdminLoginPage from "./pages/AdminLoginPage";
 import CreateAdminPage from "./pages/admin/CreateAdminPage";
@@ -66,6 +67,11 @@ const App = () => {
             {isStudent && (
               <>
                 <Route path="/" element={<GenerateResultPage />} exact />
+                <Route
+                  path="/change-password"
+                  element={<ChangePasswordPage />}
+                  exact
+                />
               </>
             )}
             <Route path="/admin/login" element={<AdminLoginPage />} exact />

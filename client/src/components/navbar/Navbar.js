@@ -18,10 +18,13 @@ export default function Navbar() {
     { link: "/admin/upload-result-file", name: "Upload Result" },
     { link: "/admin/upload-student-file", name: "Uplod Students File" },
     { link: "/admin/get-files", name: "Download Files" },
-    { link: "/admin/create-admin", name: "Create Admin" },
+    // { link: "/admin/create-admin", name: "Create Admin" },
   ];
 
-  const studentNavList = [{ link: "/", name: "Generate Result" }];
+  const studentNavList = [
+    { link: "/", name: "Generate Result" },
+    { link: "/change-password", name: "Change Password" },
+  ];
 
   return (
     <>
