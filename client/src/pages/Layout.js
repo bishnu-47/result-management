@@ -2,14 +2,14 @@ import Navbar from "../components/navbar/Navbar";
 
 const Layout = ({ children }) => {
   return (
-    <div className="min-h-screen  w-full flex flex-row bg-gray-50">
-      <aside>
+    <div className="min-h-screen w-full flex  bg-gray-50">
+      <aside className="h-screen sticky top-0">
         <Navbar />
       </aside>
 
-      <div className="w-full bg-slate-300 p-10">
+      <main className="w-full bg-slate-300 p-10">
         <div className="">{children}</div>
-      </div>
+      </main>
     </div>
   );
 };

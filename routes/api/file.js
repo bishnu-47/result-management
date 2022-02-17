@@ -308,7 +308,7 @@ function parseStudentExcelData(filePath, formData) {
       if (
         !student["Name"] ||
         !student["Email"] ||
-        !student["Moblie No."] ||
+        !student["Mobile No."] ||
         !student["Father's Name"] ||
         !student["Mother's Name"] ||
         !student["Enrollment No."]
@@ -325,7 +325,7 @@ function parseStudentExcelData(filePath, formData) {
       // personal details
       newStudentObj.name = student["Name"];
       newStudentObj.email = student["Email"];
-      newStudentObj.mobileNo = student["Moblie No."];
+      newStudentObj.mobileNo = student["Mobile No."];
       newStudentObj.fatherName = student["Father's Name"];
       newStudentObj.motherName = student["Mother's Name"];
       // acadamic details

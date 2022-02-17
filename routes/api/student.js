@@ -1,6 +1,6 @@
 import express from "express";
 import Student from "../../models/Student.js";
-import { adminAuth } from "../../middleware/auth.js";
+import { adminAuth, studentAuth } from "../../middleware/auth.js";
 
 const router = express.Router();
 
@@ -54,6 +54,42 @@ router.delete("/:id", adminAuth, async (req, res) => {
     res.status(200).json({ _id: req.params.id });
   } catch (err) {
     res.status(500).json({ success: false, msg: error.message });
+    console.log(err);
+  }
+});
+
+// @route   POST /api/student/password/reset
+// @desc   reset student password
+// @access   private
+router.post("/password/reset", studentAuth, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ msg: "Provide all fields!" });
+    }
+
+    // check password length
+    if (newPassword.length < 6) {
+      return res
+        .status(400)
+        .json({ msg: "Password length must be greater than 6!" });
+    }
+
+    // check if currentPassword is same
+    const student = await Student.findById(req.student._id);
+
+    if (currentPassword !== student.password) {
+      return res.status(400).json({ msg: "Incorrect password!" });
+    }
+
+    // everything is correct at this point(update password)
+    student.password = newPassword;
+    await student.save();
+
+    res.status(200).json({ msg: "Password changed successfuly." });
+  } catch (err) {
+    res.status(500).json({ success: false, msg: err.message });
     console.log(err);
   }
 });

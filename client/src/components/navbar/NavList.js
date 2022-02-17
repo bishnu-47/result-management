@@ -2,7 +2,7 @@ import NavListItem from "./NavListItem";
 
 const NavList = ({ list }) => {
   return (
-    <div>
+    <>
       <ul className="flex flex-col py-4">
         {list.map((item, i) => (
           <li key={i}>
@@ -10,7 +10,7 @@ const NavList = ({ list }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 

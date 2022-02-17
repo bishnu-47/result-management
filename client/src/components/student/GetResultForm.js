@@ -44,7 +44,7 @@ const GetResultForm = () => {
       branch: branchRef.current.value,
       session: sessionRef.current.value,
       semester: semesterRef.current.value,
-      examTypeRef: examTypeRef.current.value,
+      examType: examTypeRef.current.value,
     };
 
     try {
