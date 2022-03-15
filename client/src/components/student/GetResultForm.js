@@ -9,7 +9,7 @@ import {
   addWarningMsg,
 } from "../../redux/messagesSlice";
 import LoadingButton from "../utils/LoadingButton";
-import Result from "./Result";
+import PrintResult from "./PrintResult.js";
 
 const GetResultForm = () => {
   // states
@@ -186,7 +186,7 @@ const GetResultForm = () => {
 
       {showResult && (
         <div className="mt-8">
-          <Result result={resultData} student={studentData} />
+          <PrintResult result={resultData} student={studentData} />
         </div>
       )}
     </>

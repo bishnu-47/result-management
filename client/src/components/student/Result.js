@@ -1,9 +1,13 @@
+import React from "react";
 import ResultHeader from "./ResultHeader";
 
-const Result = ({ result, student }) => {
+const Result = React.forwardRef((props, ref) => {
+  const result = props.result;
+  const student = props.student;
+
   return (
     <div className="border rounded-xl mt-20">
-      <div className="flex flex-col p-5">
+      <div className="flex flex-col p-5" ref={ref}>
         <ResultHeader result={result} student={student} />
 
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -91,6 +95,6 @@ const Result = ({ result, student }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Result;

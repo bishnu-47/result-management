@@ -48,7 +48,10 @@ export const studentAuth = async (req, res, next) => {
       if (err) return res.status(401).json({ msg: "Invalid Authorization!" });
 
       // find student based on decoded data
-      const student = await Student.findOne({ _id: decoded.id }, { password: 0 }); // exclude password from result
+      const student = await Student.findOne(
+        { _id: decoded.id },
+        { password: 0 }
+      ); // exclude password from result
 
       // if no student found
       if (!student) return res.status(401).json({ msg: "Not Authorized!" });
