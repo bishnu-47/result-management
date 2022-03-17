@@ -5,7 +5,7 @@ import Result from "./Result.js";
 
 const PrintResult = ({ result, student }) => {
   const componentRef = useRef();
-  const fileName = `Result_${result.enrollNo}-Sem_${result.semester}-${result.branch}-${result.session}`
+  const fileName = `Result_${result.enrollNo}-Sem_${result.semester}-${result.branch}-${result.session}`;
 
   return (
     <div>

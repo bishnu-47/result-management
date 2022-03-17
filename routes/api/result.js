@@ -2,9 +2,66 @@ import express from "express";
 
 import Result from "../../models/Result.js";
 import Student from "../../models/Student.js";
-import { studentAuth } from "../../middleware/auth.js";
+import { studentAuth, adminAuth } from "../../middleware/auth.js";
 
 const router = express.Router();
+
+// @route   GET /api/result/get?enroll=xyz&result=xyz
+// @desc   find a student result by enroll no and semester
+// @access   private
+router.get("/get", adminAuth, async (req, res) => {
+  try {
+    const enroll = req.query.enroll;
+    const semester = req.query.semester;
+    const result = await Result.findOne({
+      enrollNo: enroll,
+      semester: semester,
+    });
+
+    if (!result)
+      return res.status(404).json({ success: false, msg: "No Result Found!" });
+
+    return res.status(200).json({ result });
+  } catch (err) {
+    return res.status(500).json({ success: false, msg: err.message });
+    console.log(err);
+  }
+});
+
+// @route   PUT /api/result
+// @desc   update result data
+// @access   private
+router.put("/", adminAuth, async (req, res) => {
+  try {
+    const newSubjects = req.body.subjects;
+    const id = req.body.id;
+    const result = await Result.findById(id);
+
+    if (!result)
+      return res.status(404).json({ success: false, msg: "No Result Found!" });
+
+    // calculate new percentage
+    let totalMarksObtained = 0;
+    let totalMarks = 0;
+
+    newSubjects.forEach((sub) => {
+      totalMarksObtained += sub.marks;
+      totalMarks += sub.fullMarks;
+    });
+
+    let newPercentage = parseFloat((totalMarksObtained / totalMarks) * 100);
+
+    // change the data and save
+    result.subjects = newSubjects;
+    result.percentage = parseFloat(newPercentage.toFixed(2));
+    await result.save();
+
+    return res.status(200).json({ msg: "Result Updated" });
+  } catch (err) {
+    return res.status(500).json({ success: false, msg: err.message });
+    console.log(err);
+  }
+});
 
 // @route   POST /api/result
 // @desc   get Result data based on given datas

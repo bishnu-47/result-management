@@ -16,6 +16,7 @@ import CreateAdminPage from "./pages/admin/CreateAdminPage";
 import UploadResultPage from "./pages/admin/UploadResultPage";
 import UploadStudentsPage from "./pages/admin/UploadStudentsPage";
 import GetFilesPage from "./pages/admin/GetFilesPage";
+import EditResultPage from "./pages/admin/EditResultPage";
 
 // other pages
 import PageNotFound from "./pages/utils/PageNotFound";
@@ -60,6 +61,11 @@ const App = () => {
                 <Route
                   path="/admin/create-admin"
                   element={<CreateAdminPage />}
+                  exact
+                />
+                <Route
+                  path="/admin/edit-result"
+                  element={<EditResultPage />}
                   exact
                 />
               </>

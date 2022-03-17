@@ -12,9 +12,9 @@ router.get("/", adminAuth, async (req, res) => {
     const students = await Student.find({}, { password: 0 }).sort({
       createdAt: -1,
     });
-    res.status(200).json(students);
+    return res.status(200).json(students);
   } catch (err) {
-    res.status(500).json({ success: false, msg: error.message });
+    res.status(500).json({ success: false, msg: err.message });
     console.log(err);
   }
 });
@@ -33,7 +33,7 @@ router.post("/", adminAuth, async (req, res) => {
   try {
     // save newItem
     await newStudent.save();
-    res.status(201).json(newStudent);
+    return res.status(201).json(newStudent);
   } catch (err) {
     res.status(500).json({ success: false, msg: err.message });
     console.log(err);
@@ -51,9 +51,9 @@ router.delete("/:id", adminAuth, async (req, res) => {
       res.status(404).json({ success: false, msg: "No Student Found!" });
 
     const queryRes = await Student.deleteOne(student);
-    res.status(200).json({ _id: req.params.id });
+    return res.status(200).json({ _id: req.params.id });
   } catch (err) {
-    res.status(500).json({ success: false, msg: error.message });
+    res.status(500).json({ success: false, msg: err.message });
     console.log(err);
   }
 });

@@ -38,6 +38,15 @@ const fileStorageEngine = multer.diskStorage({
 // multer middleware
 const upload = multer({ storage: fileStorageEngine });
 
+// function to check file extention
+function isFileValid(mimetype) {
+  const validFileTypes = [
+    "application/vnd.ms-excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  ];
+  return mimetype && validFileTypes.indexOf(mimetype) > -1;
+}
+
 // @route   POST /api/file/upload-result-file
 // @desc   upload and save result file
 // @access   private
@@ -191,15 +200,6 @@ router.get("/get-result-file-sample", adminAuth, (req, res) => {
     return res.status(500).json({ msg: "File Not Found!" });
   }
 });
-
-// function to check file extention
-function isFileValid(mimetype) {
-  const validFileTypes = [
-    "application/vnd.ms-excel",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  ];
-  return mimetype && validFileTypes.indexOf(mimetype) > -1;
-}
 
 // parse and filter result excel sheet
 function parseResultExcelData(filePath, formData) {

@@ -78,14 +78,14 @@ const GetResultForm = () => {
           {/* Enroll input: STARTS */}
           <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
             <div className="mb-6">
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <label className="block mb-2 text-sm font-medium text-gray-900">
                 Enrollment Number
               </label>
               <input
                 type="text"
                 ref={enrollRef}
                 placeholder="AJU/191234"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 required
               />
             </div>
@@ -95,14 +95,14 @@ const GetResultForm = () => {
           {/* Session input: STARTS */}
           <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
             <div className="mb-6">
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <label className="block mb-2 text-sm font-medium text-gray-900">
                 Session
               </label>
               <input
                 type="text"
                 ref={sessionRef}
                 placeholder="2015-18"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 required
               />
             </div>
@@ -112,7 +112,7 @@ const GetResultForm = () => {
           {/* branch select: STARTS */}
           <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
             <div className="mb-6">
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <label className="block mb-2 text-sm font-medium text-gray-900">
                 Branch
               </label>
               <select
@@ -132,7 +132,7 @@ const GetResultForm = () => {
           {/* Semester select: STARTS */}
           <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
             <div className="mb-6">
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <label className="block mb-2 text-sm font-medium text-gray-900">
                 Semester
               </label>
               <select
@@ -153,7 +153,7 @@ const GetResultForm = () => {
           {/* Exam Type select: STARTS */}
           <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
             <div className="mb-6">
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <label className="block mb-2 text-sm font-medium text-gray-900">
                 Exam Type
               </label>
               <select
@@ -176,7 +176,7 @@ const GetResultForm = () => {
         ) : (
           <button
             type="submit"
-            className="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700"
+            className="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-2"
           >
             GET RESULT
           </button>

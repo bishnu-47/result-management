@@ -8,6 +8,12 @@ const Result = React.forwardRef((props, ref) => {
   return (
     <div className="border rounded-xl mt-20">
       <div className="flex flex-col p-5" ref={ref}>
+        <img
+          src="/logos/arka-jain-logo.png"
+          height="200"
+          width="300"
+          className="mx-auto my-5"
+        />
         <ResultHeader result={result} student={student} />
 
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">

@@ -58,23 +58,23 @@ const GetFileForm = () => {
         <div className="inline-block py-2 mt-4 min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden shadow-md sm:rounded-lg">
             <table className="min-w-full">
-              <thead className="bg-gray-100 dark:bg-gray-700">
+              <thead className="bg-gray-100">
                 <tr>
                   <th
                     scope="col"
-                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
                   >
                     File
                   </th>
                   <th
                     scope="col"
-                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
                   >
                     Template File
                   </th>
                   <th
                     scope="col"
-                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
                   >
                     Sample File
                   </th>
@@ -82,11 +82,11 @@ const GetFileForm = () => {
               </thead>
 
               <tbody>
-                <tr className="border-b odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 dark:border-gray-600">
+                <tr className="border-b odd:bg-white even:bg-gray-50">
                   <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     Result Data
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                  <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap">
                     <span
                       className="flex cursor-pointer hover:text-gray-800"
                       onClick={handleOnResultTemplateDownload}
@@ -94,7 +94,7 @@ const GetFileForm = () => {
                       Download <FileDownloadIcon />
                     </span>
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                  <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap">
                     <span
                       className="flex cursor-pointer hover:text-gray-800"
                       onClick={handleOnResultSampleDownload}
@@ -104,11 +104,11 @@ const GetFileForm = () => {
                   </td>
                 </tr>
 
-                <tr className="border-b odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 dark:border-gray-600">
+                <tr className="border-b odd:bg-white even:bg-gray-50">
                   <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     Student Data
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                  <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap">
                     <span
                       className="flex cursor-pointer hover:text-gray-800"
                       onClick={handleOnStudentTemplateDownload}
@@ -116,7 +116,7 @@ const GetFileForm = () => {
                       Download <FileDownloadIcon />
                     </span>
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                  <td className="py-4 px-6 text-sm text-gray-500 whitespace-nowrap">
                     <span
                       className="flex cursor-pointer hover:text-gray-800"
                       onClick={handleOnStudentSampleDownload}
