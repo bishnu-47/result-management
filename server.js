@@ -3,11 +3,13 @@ import express from "express";
 import dotenv from "dotenv";
 
 import connectDB from "./config/connectDB.js";
+
 import authRoute from "./routes/api/auth.js";
 import studentRoute from "./routes/api/student.js";
 import adminRoute from "./routes/api/admin.js";
 import fileRoute from "./routes/api/file.js";
 import resultRoute from "./routes/api/result.js";
+import mailRoute from "./routes/api/mail.js";
 
 dotenv.config();
 const app = express();
@@ -24,6 +26,7 @@ app.use("/api/student", studentRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api/file", fileRoute);
 app.use("/api/result", resultRoute);
+app.use("/api/mail", mailRoute);
 
 // server static assets if in production
 if (process.env.NODE_ENV === "production") {
