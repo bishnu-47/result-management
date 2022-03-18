@@ -17,6 +17,7 @@ import UploadResultPage from "./pages/admin/UploadResultPage";
 import UploadStudentsPage from "./pages/admin/UploadStudentsPage";
 import GetFilesPage from "./pages/admin/GetFilesPage";
 import EditResultPage from "./pages/admin/EditResultPage";
+import AdminChangePasswordPage from "./pages/admin/AdminChangePasswordPage";
 
 // other pages
 import PageNotFound from "./pages/utils/PageNotFound";
@@ -66,6 +67,11 @@ const App = () => {
                 <Route
                   path="/admin/edit-result"
                   element={<EditResultPage />}
+                  exact
+                />
+                <Route
+                  path="/admin/change-password"
+                  element={<AdminChangePasswordPage />}
                   exact
                 />
               </>

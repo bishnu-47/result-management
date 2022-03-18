@@ -19,6 +19,7 @@ export default function Navbar() {
     { link: "/admin/upload-student-file", name: "Uplod Students File" },
     { link: "/admin/get-files", name: "Download Files" },
     { link: "/admin/edit-result", name: "Edit Result" },
+    { link: "/admin/change-password", name: "Change Password" },
   ];
 
   const studentNavList = [

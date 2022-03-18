@@ -8,7 +8,7 @@ import {
   addWarningMsg,
 } from "../../redux/messagesSlice";
 
-const ChangePasswordForm = () => {
+const AdminChangePasswordForm = () => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -36,7 +36,7 @@ const ChangePasswordForm = () => {
     // change password
     try {
       const res = await axios.post(
-        "/api/student/password/change",
+        "/api/admin/password/change",
         { currentPassword, newPassword },
         {
           headers: {
@@ -115,4 +115,4 @@ const ChangePasswordForm = () => {
   );
 };
 
-export default ChangePasswordForm;
+export default AdminChangePasswordForm;

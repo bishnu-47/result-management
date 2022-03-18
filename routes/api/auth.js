@@ -91,7 +91,7 @@ router.post("/admin/login", async (req, res) => {
     // compare the given pwd with hashed pwd
     const match = await bcrypt.compare(password, admin.password);
 
-    // if hashed pwd matches
+    // if hashed pwd do not match
     if (match === false) {
       return res
         .status(400)
