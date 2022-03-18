@@ -6,16 +6,19 @@ import { studentAuth, adminAuth } from "../../middleware/auth.js";
 
 const router = express.Router();
 
-// @route   GET /api/result/get?enroll=xyz&result=xyz
+// @route   GET /api/result/get?enroll=xyz&semester=xyz&type=xyz
 // @desc   find a student result by enroll no and semester
 // @access   private
 router.get("/get", adminAuth, async (req, res) => {
   try {
     const enroll = req.query.enroll;
     const semester = req.query.semester;
+    const type = req.query.type;
+
     const result = await Result.findOne({
       enrollNo: enroll,
       semester: semester,
+      examType: type,
     });
 
     if (!result)

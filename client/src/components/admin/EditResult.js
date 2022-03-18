@@ -11,6 +11,7 @@ const EditResult = () => {
 
   const enrollRef = useRef();
   const semesterRef = useRef();
+  const examTypeRef = useRef();
 
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -18,11 +19,12 @@ const EditResult = () => {
   const onEditResultSubmit = async (e) => {
     e.preventDefault();
 
-    const enroll = enrollRef.current.value;
+    const enroll = enrollRef.current.value.trim();
     const semester = semesterRef.current.value;
+    const type = examTypeRef.current.value;
     try {
       const res = await axios.get(
-        `/api/result/get?enroll=${enroll}&semester=${semester}`,
+        `/api/result/get?enroll=${enroll}&semester=${semester}&type=${type}`,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -93,6 +95,25 @@ const EditResult = () => {
             </div>
             {/* Enroll input: ENDS */}
           </div>
+
+          {/* Exam type input: STARTS */}
+          <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
+            <div className="mb-6">
+              <label className="block mb-2 text-sm font-medium text-gray-900">
+                Exam Type
+              </label>
+              <select
+                className="form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                ref={examTypeRef}
+                required
+              >
+                <option defaultValue>Select Exam Type</option>
+                <option value="REGULAR">REGULAR</option>
+                <option value="BACKLOG">BACKLOG</option>
+              </select>
+            </div>
+          </div>
+          {/* Exam type input: ENDS */}
 
           <button className="btn" type="submit">
             Get Result
