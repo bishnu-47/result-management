@@ -1,4 +1,4 @@
-// #!usr/bin/env node
+#!/usr/bin/env node
 
 "use strict";
 import dotenv from "dotenv";
@@ -12,10 +12,13 @@ import Admin from "../models/Admin.js";
 
 dotenv.config();
 
+// program help details
+program.description("A cli to manage admins for result-management app");
+
 // to add admin
 program
-  .version("1.0.0")
   .command("admin:add")
+  .description("To add an Admin")
   .action((options) => {
     // questions
     const questions = [
@@ -72,8 +75,8 @@ program
 
 // to remove an admin
 program
-  .version("1.0.0")
   .command("admin:remove")
+  .description("To remove an Admin")
   .action((options) => {
     // questions
     const questions = [
@@ -81,6 +84,11 @@ program
         type: "input",
         name: "email",
         message: "Enter the email of admin to be removed:",
+      },
+      {
+        type: "confirm",
+        name: "confirm",
+        message: "Are you sure you want to remove this admin?",
       },
     ];
 
@@ -95,8 +103,14 @@ program
           .then(() => {
             // on successful mongoose connection
             // destructure the inputs(answers)
-            const { email } = answers;
-            return removeAdmin(email.trim());
+            const { email, confirm } = answers;
+
+            if (confirm) {
+              return removeAdmin(email.trim());
+            } else {
+              console.log(chalk.blue("Task Aborted!"));
+              process.exit();
+            }
           })
           .catch((err) => {
             // mongoose connection error
@@ -108,6 +122,56 @@ program
         // on successful processing of inquirer inputs
         // on successful creation of admin
         console.log(chalk.green(`Admin:${result.name} removed.`));
+        process.exit();
+      })
+      .catch((err) => {
+        // handle inquirer errors
+        if (err.isTtyError) {
+          console.log(
+            chalk.red("Prompt couldn't be rendered in the current environment")
+          );
+          process.exit();
+        } else {
+          console.log(err); // TODO: remove this line
+          console.log(chalk.red(err.message));
+          process.exit();
+        }
+      });
+  });
+
+// to list all admins
+program
+  .command("admin:list")
+  .description("To list all Admins")
+  .action((options) => {
+    // questions
+    const questions = [];
+
+    // inquirer for cli inputs
+    inquirer
+      .prompt(questions)
+      .then(async (answers) => {
+        // on successful inquirer inputs
+        // connect to DB
+        return mongoose
+          .connect(process.env.MONGO_URI)
+          .then(() => {
+            // on successful mongoose connection
+            // destructure the inputs(answers)
+            return listAdmins();
+          })
+          .catch((err) => {
+            // mongoose connection error
+            console.log(chalk.red("Connection to database failed!"));
+            process.exit();
+          });
+      })
+      .then((result) => {
+        // on successful processing of inquirer inputs
+        // on successful fetch of admins
+        result.forEach((admin, idx) => {
+          console.log(chalk.cyan(`${idx + 1}. ${admin.email}`));
+        });
         process.exit();
       })
       .catch((err) => {
@@ -164,6 +228,20 @@ function removeAdmin(email) {
   return Admin.findOneAndRemove({ email })
     .then((result) => {
       if (!result) throw new Error("Admin not Found!");
+
+      return result;
+    })
+    .catch((err) => {
+      console.log(chalk.red(err.message));
+      process.exit();
+    });
+}
+
+function listAdmins() {
+  // find the admins
+  return Admin.find()
+    .then((result) => {
+      if (!result || result.length === 0) throw new Error("No admins found!");
 
       return result;
     })
