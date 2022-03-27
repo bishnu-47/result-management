@@ -6,6 +6,41 @@ import { studentAuth, adminAuth } from "../../middleware/auth.js";
 
 const router = express.Router();
 
+// @route   POST /api/result
+// @desc   create new result data
+// @access   private
+router.put("/", adminAuth, async (req, res) => {
+  try {
+    const newSubjects = req.body.subjects;
+    const id = req.body.id;
+    const result = await Result.findById(id);
+
+    if (!result)
+      return res.status(404).json({ success: false, msg: "No Result Found!" });
+
+    // calculate new percentage
+    let totalMarksObtained = 0;
+    let totalMarks = 0;
+
+    newSubjects.forEach((sub) => {
+      totalMarksObtained += sub.marks;
+      totalMarks += sub.fullMarks;
+    });
+
+    let newPercentage = parseFloat((totalMarksObtained / totalMarks) * 100);
+
+    // change the data and save
+    result.subjects = newSubjects;
+    result.percentage = parseFloat(newPercentage.toFixed(2));
+    await result.save();
+
+    return res.status(200).json({ msg: "Result Updated" });
+  } catch (err) {
+    return res.status(500).json({ success: false, msg: err.message });
+    console.log(err);
+  }
+});
+
 // @route   GET /api/result/get?enroll=xyz&semester=xyz&type=xyz
 // @desc   find a student result by enroll no and semester
 // @access   private
@@ -66,9 +101,31 @@ router.put("/", adminAuth, async (req, res) => {
   }
 });
 
-// @route   POST /api/result
-// @desc   get Result data based on given datas
+// @route   DELETE /api/result/:id
+// @desc   remove a result data
 // @access   private
+router.delete("/:id", adminAuth, async (req, res) => {
+  try {
+    const result = await Result.findById(req.params.id);
+
+    if (!result)
+      return res
+        .status(404)
+        .json({ success: false, msg: "No Result data found!" });
+
+    const queryRes = await Result.findByIdAndDelete(result._id);
+    return res
+      .status(200)
+      .json({ _id: req.params.id, msg: "Result data deleted!" });
+  } catch (err) {
+    res.status(500).json({ success: false, msg: err.message });
+    console.log(err);
+  }
+});
+
+// @route   POST /api/result/generate
+// @desc   generate result data (used by student to get result)
+// @access   private - student
 router.post("/", studentAuth, async (req, res) => {
   const { semester, branch, examType } = req.body;
   const session = req.body.session.trim();

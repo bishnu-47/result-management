@@ -48,7 +48,7 @@ const GetResultForm = () => {
     };
 
     try {
-      const res = await axios.post("/api/result", formData, {
+      const res = await axios.post("/api/result/generate", formData, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${token}`,

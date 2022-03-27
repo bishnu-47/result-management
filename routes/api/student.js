@@ -4,6 +4,39 @@ import { adminAuth, studentAuth } from "../../middleware/auth.js";
 
 const router = express.Router();
 
+// @route   POST /api/student
+// @desc   create a student
+// @access   private
+router.post("/", adminAuth, async (req, res) => {
+  const student = req.body;
+
+  try {
+    const newStudent = new Student({
+      ...student,
+      createdBy: req.admin.email,
+    });
+
+    // check if student already exists
+    const existingStudent = await Student.findOne({
+      enrollNo: newStudent.enrollNo,
+    });
+    if (existingStudent)
+      return res.status(400).json({ msg: "Student already exists" });
+
+    // create default password = enrollNo
+    newStudent.password = newStudent.enrollNo;
+
+    // save newItem
+    await newStudent.save();
+    return res
+      .status(201)
+      .json({ msg: "Student created successfully.", data: newStudent });
+  } catch (err) {
+    res.status(500).json({ success: false, msg: err.message });
+    console.log(err);
+  }
+});
+
 // @route   GET /api/student
 // @desc   get all students
 // @access   private
@@ -19,23 +52,39 @@ router.get("/", adminAuth, async (req, res) => {
   }
 });
 
-// @route   POST /api/student
-// @desc   create a student
+// @route   GET /api/student/:id
+// @desc   get single student data
 // @access   private
-router.post("/", adminAuth, async (req, res) => {
-  const student = req.body;
-
-  const newStudent = new Student({
-    ...student,
-    createdBy: req.admin.email,
-  });
+router.get("/:id", adminAuth, async (req, res) => {
+  const id = req.params.id;
 
   try {
-    // save newItem
-    await newStudent.save();
-    return res.status(201).json(newStudent);
+    const student = await Student.findById(id, { password: 0 });
+
+    if (!student) return res.status(404).json({ msg: "Student not found!" });
+
+    return res.status(201).json({ msg: "Student Data Found.", data: student });
   } catch (err) {
-    res.status(500).json({ success: false, msg: err.message });
+    return res.status(500).json({ success: false, msg: err.message });
+    console.log(err);
+  }
+});
+
+// @route   PUT /api/student/:id
+// @desc   upadate a student
+// @access   private
+router.put("/:id", adminAuth, async (req, res) => {
+  const id = req.params.id;
+  const student = req.body;
+
+  try {
+    const queryRes = await Student.findByIdAndUpdate(id, { ...student });
+
+    if (!queryRes) return res.status(404).json({ msg: "Student not found!" });
+
+    return res.status(201).json({ msg: "Data Updated successfuly." });
+  } catch (err) {
+    return res.status(500).json({ success: false, msg: err.message });
     console.log(err);
   }
 });
@@ -48,10 +97,12 @@ router.delete("/:id", adminAuth, async (req, res) => {
     const student = await Student.findById(req.params.id);
 
     if (!student)
-      res.status(404).json({ success: false, msg: "No Student Found!" });
+      return res.status(404).json({ success: false, msg: "No Student Found!" });
 
-    const queryRes = await Student.deleteOne(student);
-    return res.status(200).json({ _id: req.params.id });
+    const queryRes = await Student.findByIdAndDelete(student._id);
+    return res
+      .status(200)
+      .json({ _id: req.params.id, msg: "Student data deleted successfuly." });
   } catch (err) {
     res.status(500).json({ success: false, msg: err.message });
     console.log(err);
