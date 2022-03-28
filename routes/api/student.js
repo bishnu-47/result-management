@@ -52,6 +52,27 @@ router.get("/", adminAuth, async (req, res) => {
   }
 });
 
+// @route   GET /api/student/find?enroll=XYZ
+// @desc   get single student data with Enrollment number
+// @access   private
+router.get("/find", adminAuth, async (req, res) => {
+  const enroll = req.query.enroll;
+
+  try {
+    const student = await Student.findOne(
+      { enrollNo: enroll },
+      { password: 0 }
+    );
+
+    if (!student) return res.status(404).json({ msg: "Student not found!" });
+
+    return res.status(201).json({ msg: "Student Data Found.", data: student });
+  } catch (err) {
+    return res.status(500).json({ success: false, msg: err.message });
+    console.log(err);
+  }
+});
+
 // @route   GET /api/student/:id
 // @desc   get single student data
 // @access   private
@@ -75,7 +96,7 @@ router.get("/:id", adminAuth, async (req, res) => {
 // @access   private
 router.put("/:id", adminAuth, async (req, res) => {
   const id = req.params.id;
-  const student = req.body;
+  const student = req.body.student;
 
   try {
     const queryRes = await Student.findByIdAndUpdate(id, { ...student });

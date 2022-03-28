@@ -77,7 +77,9 @@ const UploadStudentsForm = () => {
             ref={branchRef}
             required
           >
-            <option defaultValue>Select Branch</option>
+            <option disabled defaultValue>
+              Select Branch
+            </option>
             <option value="BCA">BCA</option>
             <option value="BBA">BBA</option>
             <option value="BCom">BCom</option>

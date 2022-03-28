@@ -81,7 +81,9 @@ const UploadResultForm = () => {
             ref={branchRef}
             required
           >
-            <option defaultValue>Select Branch</option>
+            <option disabled defaultValue>
+              Select Branch
+            </option>
             <option value="BCA">BCA</option>
             <option value="BBA">BBA</option>
             <option value="BCom">BCom</option>
@@ -99,7 +101,9 @@ const UploadResultForm = () => {
             ref={semesterRef}
             required
           >
-            <option defaultValue>Select Semester</option>
+            <option disabled defaultValue>
+              Select Semester
+            </option>
             <option value="1">I</option>
             <option value="2">II</option>
             <option value="3">III</option>
@@ -133,7 +137,9 @@ const UploadResultForm = () => {
             ref={examTypeRef}
             required
           >
-            <option defaultValue>Select Exam Type</option>
+            <option disabled defaultValue>
+              Select Exam Type
+            </option>
             <option value="REGULAR">REGULAR</option>
             <option value="BACKLOG">BACKLOG</option>
           </select>

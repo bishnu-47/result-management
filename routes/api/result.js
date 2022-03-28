@@ -11,18 +11,25 @@ const router = express.Router();
 // @access   private
 router.put("/", adminAuth, async (req, res) => {
   try {
-    const newSubjects = req.body.subjects;
-    const id = req.body.id;
-    const result = await Result.findById(id);
+    const resultData = req.body.result;
 
-    if (!result)
-      return res.status(404).json({ success: false, msg: "No Result Found!" });
+    // check if student exists with this enrollNo
+    const student = await Student.findOne({ enrollNo: resultData.enrollNo });
+    if (!student)
+      return res
+        .status(404)
+        .json({ msg: "No Student Found with given enrollment number!" });
+
+    // create new result
+    const newResult = new Result({
+      ...resultData,
+    });
 
     // calculate new percentage
     let totalMarksObtained = 0;
     let totalMarks = 0;
 
-    newSubjects.forEach((sub) => {
+    newResult.subjects.forEach((sub) => {
       totalMarksObtained += sub.marks;
       totalMarks += sub.fullMarks;
     });
@@ -30,13 +37,12 @@ router.put("/", adminAuth, async (req, res) => {
     let newPercentage = parseFloat((totalMarksObtained / totalMarks) * 100);
 
     // change the data and save
-    result.subjects = newSubjects;
-    result.percentage = parseFloat(newPercentage.toFixed(2));
+    newResult.percentage = parseFloat(newPercentage.toFixed(2));
     await result.save();
 
-    return res.status(200).json({ msg: "Result Updated" });
+    return res.status(200).json({ msg: "Result Data Created" });
   } catch (err) {
-    return res.status(500).json({ success: false, msg: err.message });
+    return res.status(500).json({ msg: err.message });
     console.log(err);
   }
 });

@@ -33,7 +33,6 @@ const EditResult = () => {
       );
 
       // on success
-      console.log(res.data.result);
       setResultData(res.data.result);
       setShowForm(true);
       dispatch(addSuccessMsg(res.data.msg));
@@ -51,7 +50,7 @@ const EditResult = () => {
       {showForm ? (
         <EditResultForm result={resultData} setShowForm={setShowForm} />
       ) : (
-        <form className="w-11/12 mx-auto" onSubmit={onEditResultSubmit}>
+        <form className="mx-auto" onSubmit={onEditResultSubmit}>
           <div className="flex">
             {/* Enroll input: STARTS */}
             <div className="my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-2 md:px-2 md:w-1/2 lg:my-2 lg:px-2 lg:w-1/2 xl:my-3 xl:px-3 xl:w-1/2">
@@ -81,7 +80,9 @@ const EditResult = () => {
                   ref={semesterRef}
                   required
                 >
-                  <option defaultValue>Select Semester</option>
+                  <option disabled defaultValue>
+                    Select Semester
+                  </option>
                   <option value="1">I</option>
                   <option value="2">II</option>
                   <option value="3">III</option>
@@ -107,7 +108,9 @@ const EditResult = () => {
                 ref={examTypeRef}
                 required
               >
-                <option defaultValue>Select Exam Type</option>
+                <option disabled defaultValue>
+                  Select Exam Type
+                </option>
                 <option value="REGULAR">REGULAR</option>
                 <option value="BACKLOG">BACKLOG</option>
               </select>
