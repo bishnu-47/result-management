@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import AddStudentActionForm from "./studentActions/AddStudentActionForm.js";
 import EditStudentActionForm from "./studentActions/EditStudentActionForm.js";
+import DeleteStudentActionForm from "./studentActions/DeleteStudentActionForm.js";
 
 import AddUserIcon from "../utils/AddUserIcon.js";
 import RemoveUserIcon from "../utils/RemoveUserIcon.js";
@@ -45,7 +46,7 @@ const ManageStudentsList = () => {
       ) : showForm === "editStudent" ? (
         <EditStudentActionForm setShowForm={setShowForm} />
       ) : (
-        "delete student"
+        <DeleteStudentActionForm setShowForm={setShowForm} />
       )}
     </>
   );
