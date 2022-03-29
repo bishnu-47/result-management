@@ -23,6 +23,7 @@ const AddStudentActionForm = ({ setShowForm }) => {
   const motherNameRef = useRef();
 
   const { token } = useSelector((state) => state.auth);
+  const { branches } = useSelector((state) => state.branch);
   const dispatch = useDispatch();
 
   async function handleOnAddStudent(e) {
@@ -114,9 +115,11 @@ const AddStudentActionForm = ({ setShowForm }) => {
           <option disabled defaultValue>
             Select Branch
           </option>
-          <option value="BCA">BCA</option>
-          <option value="BBA">BBA</option>
-          <option value="BCom">BCom</option>
+          {branches.map((branch, i) => (
+            <option value={branch.name} key={i}>
+              {branch.name}
+            </option>
+          ))}
         </select>
 
         <label className="label">

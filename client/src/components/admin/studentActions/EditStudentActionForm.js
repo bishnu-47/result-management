@@ -25,6 +25,7 @@ const EditStudentActionForm = ({ setShowForm }) => {
   const motherNameRef = useRef();
 
   const { token } = useSelector((state) => state.auth);
+  const { branches } = useSelector((state) => state.branch);
   const dispatch = useDispatch();
 
   // handle on find student by enroll no
@@ -153,9 +154,13 @@ const EditStudentActionForm = ({ setShowForm }) => {
             >
               <option disabled>Select Branch</option>
               <option value={student.branch}>{student.branch}</option>
-              <option value="BCA">BCA</option>
-              <option value="BBA">BBA</option>
-              <option value="BCom">BCom</option>
+              {branches
+                .filter((b) => student.branch !== b.name)
+                .map((branch, i) => (
+                  <option value={branch.name} key={i}>
+                    {branch.name}
+                  </option>
+                ))}
             </select>
 
             <label className="label">
