@@ -58,7 +58,7 @@ const GetFileForm = () => {
         <div className="inline-block py-2 mt-4 min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden shadow-md sm:rounded-lg">
             <table className="min-w-full">
-              <thead className="bg-gray-100">
+              <thead className="bg-gray-300">
                 <tr>
                   <th
                     scope="col"

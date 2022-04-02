@@ -58,6 +58,8 @@ const GetResultForm = () => {
         },
       });
 
+      console.log("hi");
+
       // on success
       setResultData(res.data.result);
       setStudentData(res.data.student);
@@ -153,7 +155,7 @@ const GetResultForm = () => {
                 onChange={handleOnBranchChange}
                 required
               >
-                <option disabled defaultValue>
+                <option selected disabled>
                   Select Branch
                 </option>
                 {branches.map((branch, i) => (

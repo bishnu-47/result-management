@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { logout } from "../../redux/authSlice";
+import SidebarList from "./SidebarList";
+import CrossIcon from "../utils/CrossIcon.js";
 
-import NavList from "./NavList";
-
-export default function Navbar() {
+export default function Sidebar({ show, setShow }) {
   const { authorized, isAdmin } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,37 +31,49 @@ export default function Navbar() {
 
   return (
     <>
-      {/* LOGO starts */}
-      <div className="flex flex-col w-56 h-screen bg-white rounded-r-3xl overflow-hidden bg-gray-50">
-        <div className="flex p-4 items-center justify-center h-20 shadow-md">
-          <img src="/logos/arka-jain-logo.png" alt="Arka Jain University" />
-        </div>
-        {/* LOGO Ends */}
-
+      <div
+        className={`top-0 right-0 fixed bg-slate-400 w-[50vw] md:w-[25vw] lg:w-[20vw] h-full ${
+          show ? "translate-x-0" : "translate-x-full"
+        } ease-in-out duration-300`}
+      >
         {/* NavList Starts */}
         <div>
           {isAdmin ? (
-            <NavList list={adminNavList} />
+            <SidebarList list={adminNavList} />
           ) : (
-            <NavList list={studentNavList} />
+            <SidebarList list={studentNavList} />
           )}
         </div>
         {/* NavList Starts */}
 
         {/* LogIn/LogOut Button starts */}
         <div
-          className="flex flex-row items-center h-12 transform
+          className="transform
           hover:translate-x-2 transition-transform ease-in duration-200
-          text-gray-500 hover:text-red-400  cursor-pointer"
+          text-gray-100 hover:text-red-600 cursor-pointer"
           onClick={handleOnClick}
         >
-          <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"></span>
-          <span className="text-sm font-medium">
+          <span className="ml-10 text-sm font-bold">
             {authorized ? "Logout" : "LogIn"}
           </span>
         </div>
         {/* LogIn/LogOut Button ends */}
       </div>
+
+      {/*Cross button : STARTS */}
+      {show ? (
+        <>
+          <button
+            className="fixed top-4 right-4 z-10"
+            onClick={() => setShow(!show)}
+          >
+            <CrossIcon height={6} width={6} color="text-gray-100" />
+          </button>
+        </>
+      ) : (
+        ""
+      )}
+      {/*Cross button : ENDS */}
     </>
   );
 }

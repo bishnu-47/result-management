@@ -19,16 +19,21 @@ const Alerts = () => {
     dispatch(removeAllMsg());
   }
 
+  // styles
+  const crossIconStyle = "ml-5 hidden md:inline";
+
   return (
     <div>
       <div className="fixed ml-5 mb-5 bottom-0 left-0">
         {error && (
           <div
-            className="alert alert-error flex-1 cursor-pointer"
+            className="alert flex-1 cursor-pointer bg-red-600 text-white font-bold"
             onClick={handleRemoveMsg}
           >
             {error}
-            <CrossIcon />
+            <span className={crossIconStyle}>
+              <CrossIcon />
+            </span>
           </div>
         )}
       </div>
@@ -36,11 +41,13 @@ const Alerts = () => {
       <div className="fixed ml-5 mb-5 bottom-0">
         {success && (
           <div
-            className="alert alert-success flex-1 cursor-pointer"
+            className="alert flex-1 cursor-pointer bg-green-500 text-white font-bold"
             onClick={handleRemoveMsg}
           >
             {success}
-            <CrossIcon />
+            <span className={crossIconStyle}>
+              <CrossIcon />
+            </span>
           </div>
         )}
       </div>
@@ -48,11 +55,13 @@ const Alerts = () => {
       <div className="fixed ml-5 mb-5 bottom-0">
         {info && (
           <div
-            className="alert alert-info flex-1 cursor-pointer"
+            className="alert flex-1 cursor-pointer bg-blue-500 text-white font-bold"
             onClick={handleRemoveMsg}
           >
             {info}
-            <CrossIcon />
+            <span className={crossIconStyle}>
+              <CrossIcon />
+            </span>
           </div>
         )}
       </div>
@@ -60,11 +69,13 @@ const Alerts = () => {
       <div className="fixed ml-5 mb-5 bottom-0">
         {warning && (
           <div
-            className="alert alert-warning flex-1 cursor-pointer"
+            className="alert flex-2 cursor-pointer bg-yellow-400 text-gray-200 font-bold"
             onClick={handleRemoveMsg}
           >
             {warning}
-            <CrossIcon />
+            <span className={crossIconStyle}>
+              <CrossIcon />
+            </span>
           </div>
         )}
       </div>

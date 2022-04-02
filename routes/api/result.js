@@ -132,7 +132,7 @@ router.delete("/:id", adminAuth, async (req, res) => {
 // @route   POST /api/result/generate
 // @desc   generate result data (used by student to get result)
 // @access   private - student
-router.post("/", studentAuth, async (req, res) => {
+router.post("/generate", studentAuth, async (req, res) => {
   const { semester, branch, examType } = req.body;
   const session = req.body.session.trim();
   const enrollNo = req.body.enrollNo.trim();

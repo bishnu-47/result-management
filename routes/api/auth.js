@@ -47,7 +47,7 @@ router.post("/admin/register", async (req, res) => {
     jwt.sign(
       { id: newAdmin.id },
       process.env.JWT_SECRET,
-      { expiresIn: 3600 },
+      { expiresIn: 3600 * 24 },
       (err, token) => {
         if (err) throw err;
 
@@ -102,7 +102,7 @@ router.post("/admin/login", async (req, res) => {
     jwt.sign(
       { id: admin.id },
       process.env.JWT_SECRET,
-      { expiresIn: 3600 },
+      { expiresIn: 3600 * 24 },
       (err, token) => {
         if (err) throw err;
 

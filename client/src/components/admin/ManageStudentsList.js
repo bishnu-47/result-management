@@ -13,7 +13,7 @@ const ManageStudentsList = () => {
 
   // styles
   const liItem =
-    "bg-gray-200 p-5 my-4 rounded flex items-center justify-between ease-out duration-300 cursor-pointer hover:scale-105";
+    "bg-gray-300 p-5 my-4 rounded flex items-center justify-between ease-out duration-300 cursor-pointer hover:scale-105";
   const liItemIcon = "p-2 rounded-full";
 
   return (

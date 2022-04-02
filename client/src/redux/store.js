@@ -8,6 +8,6 @@ export const store = configureStore({
   reducer: {
     auth: authSlice,
     messages: messagesSlice,
-    branch: branchSlice
+    branch: branchSlice,
   },
 });

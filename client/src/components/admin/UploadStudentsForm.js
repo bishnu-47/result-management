@@ -66,8 +66,7 @@ const UploadStudentsForm = () => {
   };
 
   // styles
-  const label =
-    "block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300";
+  const label = "block mb-2 text-sm font-medium text-gray-900";
   const select =
     "form-select form-select-lg mb-3 appearance-none block " +
     "w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding " +
@@ -119,7 +118,7 @@ const UploadStudentsForm = () => {
         <div>
           <label className={label}>Upload file</label>
           <input className={fileInput} type="file" onChange={onFileChange} />
-          <div className="mt-1 text-sm text-gray-500 dark:text-gray-300">
+          <div className="mt-1 text-sm text-gray-500">
             Choose an excel file to upload.
           </div>
         </div>

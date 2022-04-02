@@ -115,7 +115,7 @@ const UploadResultForm = () => {
             onChange={handleOnBranchChange}
             required
           >
-            <option disabled defaultValue>
+            <option disabled selected>
               Select Branch
             </option>
             {branches.map((branch, i) => (

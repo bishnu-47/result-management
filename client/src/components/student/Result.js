@@ -6,10 +6,10 @@ const Result = React.forwardRef((props, ref) => {
   const student = props.student;
 
   return (
-    <div className="border rounded-xl mt-20">
+    <div className="border rounded-xl mt-20 bg-white">
       <div className="flex flex-col p-5" ref={ref}>
         <img
-          src="/logos/arka-jain-logo.png"
+          src="/logos/arka-jain-logo-result-header.png"
           height="200"
           width="300"
           className="mx-auto my-5"

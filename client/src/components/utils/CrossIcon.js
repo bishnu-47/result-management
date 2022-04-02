@@ -1,8 +1,8 @@
-const CrossIcon = () => {
+const CrossIcon = ({ height = 5, width = 5, color }) => {
   return (
     <>
       <svg
-        className="w-5 h-5 ml-3"
+        className={`w-${width} h-${height} ${color}`}
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
