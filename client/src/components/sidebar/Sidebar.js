@@ -31,34 +31,28 @@ export default function Sidebar({ show, setShow }) {
 
   return (
     <>
-      <div
-        className={`top-0 right-0 fixed bg-slate-400 w-[50vw] md:w-[25vw] lg:w-[20vw] h-full ${
-          show ? "translate-x-0" : "translate-x-full"
-        } ease-in-out duration-300`}
-      >
-        {/* NavList Starts */}
-        <div>
-          {isAdmin ? (
-            <SidebarList list={adminNavList} />
-          ) : (
-            <SidebarList list={studentNavList} />
-          )}
-        </div>
-        {/* NavList Starts */}
-
-        {/* LogIn/LogOut Button starts */}
-        <div
-          className="transform
-          hover:translate-x-2 transition-transform ease-in duration-200
-          text-gray-100 hover:text-red-600 cursor-pointer"
-          onClick={handleOnClick}
-        >
-          <span className="ml-10 text-sm font-bold">
-            {authorized ? "Logout" : "LogIn"}
-          </span>
-        </div>
-        {/* LogIn/LogOut Button ends */}
+      {/* NavList Starts */}
+      <div>
+        {isAdmin ? (
+          <SidebarList list={adminNavList} />
+        ) : (
+          <SidebarList list={studentNavList} />
+        )}
       </div>
+      {/* NavList Ends */}
+
+      {/* LogIn/LogOut Button starts */}
+      <div
+        className="transform
+        hover:translate-x-2 transition-transform ease-in duration-200
+        text-gray-100 hover:text-red-600 cursor-pointer"
+        onClick={handleOnClick}
+      >
+        <span className="ml-10 text-sm font-bold">
+          {authorized ? "Logout" : "LogIn"}
+        </span>
+      </div>
+      {/* LogIn/LogOut Button ends */}
 
       {/*Cross button : STARTS */}
       {show ? (
