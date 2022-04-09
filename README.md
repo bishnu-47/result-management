@@ -1,15 +1,28 @@
-## Shoping list
+## Result Management
 
-Simple shopping list app. (Made as a stater boiler plate for MERN apps).
+A website where students can login and view their result from anywhere and anytime.
 
-### Important Notes:
+#### Student Functionalities:
 
-- Uses `redux-toolkit` for state management
-- following key value pair should be added in `.env` file:
-  - On server:
-    ```
-    PORT=5000
-    MONGO_URI=<secret mongoDb connection Uri>
-    NODE_ENV=<'production' or 'development'>
-    JWT_SECRET=<jwt secret word>
-    ```
+- can view result.
+- can change password.
+
+#### Admin Functionalities:
+
+- can manage result data.
+- can manage student data.
+- can mange other admin.
+
+**Note**: requires _.env_ file with following key-values:
+
+```
+PORT=<port where website is to be hosted>
+MONGO_URI=<mongoDB atlas URI>
+
+NODE_ENV=<development/production>
+JWT_SECRET=<jwt secret word>
+
+EMAIL_USERNAME=<email id from which forgot password email is sent>
+EMAIL_PASSWORD=<email id password>
+
+```
