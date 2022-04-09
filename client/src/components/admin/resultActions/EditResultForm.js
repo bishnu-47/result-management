@@ -7,8 +7,8 @@ import {
   addErrorMsg,
   addSuccessMsg,
   addWarningMsg,
-} from "../../redux/messagesSlice";
-import CrossIcon from "../utils/CrossIcon";
+} from "../../../redux/messagesSlice";
+import CrossIcon from "../../utils/CrossIcon";
 
 const EditResultForm = ({ result, setShowForm }) => {
   const [subjects, setSubjects] = useState(result.subjects);
@@ -46,12 +46,11 @@ const EditResultForm = ({ result, setShowForm }) => {
     e.preventDefault();
     // create form data
     const formData = {
-      id: result._id,
       subjects: subjects,
     };
 
     try {
-      const res = await axios.put("/api/result", formData, {
+      const res = await axios.put("/api/result/" + result._id, formData, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${token}`,

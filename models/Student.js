@@ -11,6 +11,7 @@ const StudentSchema = new Schema({
   email: {
     type: String,
     requried: true,
+    unique: true,
   },
   mobileNo: {
     type: String,
@@ -33,6 +34,7 @@ const StudentSchema = new Schema({
   enrollNo: {
     type: String,
     requried: true,
+    unique: true,
   },
   session: {
     type: String,

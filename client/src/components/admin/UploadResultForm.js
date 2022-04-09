@@ -86,8 +86,7 @@ const UploadResultForm = () => {
   }
 
   // styles
-  const label =
-    "block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300";
+  const label = "block mb-2 text-sm font-medium text-gray-900";
   const select =
     "form-select form-select-lg mb-3 appearance-none block " +
     "w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white bg-clip-padding " +

@@ -9,9 +9,9 @@ const router = express.Router();
 // @route   POST /api/result
 // @desc   create new result data
 // @access   private
-router.put("/", adminAuth, async (req, res) => {
+router.post("/", adminAuth, async (req, res) => {
   try {
-    const resultData = req.body.result;
+    const resultData = req.body;
 
     // check if student exists with this enrollNo
     const student = await Student.findOne({ enrollNo: resultData.enrollNo });
@@ -19,6 +19,34 @@ router.put("/", adminAuth, async (req, res) => {
       return res
         .status(404)
         .json({ msg: "No Student Found with given enrollment number!" });
+
+    // validate and filter subjects array
+    let emptyField = false;
+    const newSubjects = resultData.subjects.map((subject, idx) => {
+      const filteredSubjectData = subject;
+
+      // iterate over eact object item
+      for (const [key, value] of Object.entries(subject)) {
+        if (value === "") {
+          // check if object contains empty fields
+          emptyField = true;
+          return;
+        }
+
+        // convert string to number
+        if (key === "marks") {
+          filteredSubjectData[key] = parseFloat(value);
+        } else if (key === "fullMarks" || key === "passMarks") {
+          filteredSubjectData[key] = parseInt(value);
+        }
+        // console.log(`${key}: ${value}`);
+      }
+
+      return filteredSubjectData;
+    });
+
+    if (emptyField)
+      return res.status(400).json({ msg: "Please fill all fields!" });
 
     // create new result
     const newResult = new Result({
@@ -30,20 +58,25 @@ router.put("/", adminAuth, async (req, res) => {
     let totalMarks = 0;
 
     newResult.subjects.forEach((sub) => {
-      totalMarksObtained += sub.marks;
-      totalMarks += sub.fullMarks;
+      totalMarksObtained += parseFloat(sub.marks);
+      totalMarks += parseInt(sub.fullMarks);
     });
 
     let newPercentage = parseFloat((totalMarksObtained / totalMarks) * 100);
 
-    // change the data and save
+    // change the data
     newResult.percentage = parseFloat(newPercentage.toFixed(2));
-    await result.save();
+    // append other student datas
+    newResult.studentName = student.name;
+    newResult.session = student.session;
+
+    // save
+    await newResult.save();
 
     return res.status(200).json({ msg: "Result Data Created" });
   } catch (err) {
-    return res.status(500).json({ msg: err.message });
     console.log(err);
+    return res.status(500).json({ msg: err.message });
   }
 });
 
@@ -72,13 +105,13 @@ router.get("/get", adminAuth, async (req, res) => {
   }
 });
 
-// @route   PUT /api/result
+// @route   PUT /api/result/:id
 // @desc   update result data
 // @access   private
-router.put("/", adminAuth, async (req, res) => {
+router.put("/:id", adminAuth, async (req, res) => {
   try {
     const newSubjects = req.body.subjects;
-    const id = req.body.id;
+    const id = req.params.id;
     const result = await Result.findById(id);
 
     if (!result)
@@ -102,8 +135,8 @@ router.put("/", adminAuth, async (req, res) => {
 
     return res.status(200).json({ msg: "Result Updated" });
   } catch (err) {
-    return res.status(500).json({ success: false, msg: err.message });
     console.log(err);
+    return res.status(500).json({ success: false, msg: err.message });
   }
 });
 

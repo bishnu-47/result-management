@@ -12,11 +12,10 @@ import GenerateResultPage from "./pages/student/GenerateResultPage";
 import ChangePasswordPage from "./pages/student/ChangePasswordPage";
 // admin releated
 import AdminLoginPage from "./pages/AdminLoginPage";
-import CreateAdminPage from "./pages/admin/CreateAdminPage";
 import UploadResultPage from "./pages/admin/UploadResultPage";
 import UploadStudentsPage from "./pages/admin/UploadStudentsPage";
 import GetFilesPage from "./pages/admin/GetFilesPage";
-import EditResultPage from "./pages/admin/EditResultPage";
+import ManageResultPage from "./pages/admin/ManageResultPage";
 import ManageStudentsPage from "./pages/admin/ManageStudentsPage";
 import AdminChangePasswordPage from "./pages/admin/AdminChangePasswordPage";
 
@@ -61,13 +60,8 @@ const App = () => {
                   exact
                 />
                 <Route
-                  path="/admin/create-admin"
-                  element={<CreateAdminPage />}
-                  exact
-                />
-                <Route
-                  path="/admin/edit-result"
-                  element={<EditResultPage />}
+                  path="/admin/manage-result"
+                  element={<ManageResultPage />}
                   exact
                 />
                 <Route

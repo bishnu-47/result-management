@@ -19,7 +19,7 @@ export default function Sidebar({ show, setShow }) {
     { link: "/admin/upload-result-file", name: "Upload Result" },
     { link: "/admin/upload-student-file", name: "Uplod Students File" },
     { link: "/admin/get-files", name: "Download Files" },
-    { link: "/admin/edit-result", name: "Edit Result" },
+    { link: "/admin/manage-result", name: "Manage Result Data" },
     { link: "/admin/manage-students", name: "Manage Students" },
     { link: "/admin/change-password", name: "Change Password" },
   ];
