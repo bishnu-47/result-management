@@ -8,6 +8,8 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "client-install": "npm install --prefix client",
+    "build": "cd client && npm run build",
+    "heroku-postbuild":"npm run client-install && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "manage-admin": "./scripts/manageAdmin.js",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""

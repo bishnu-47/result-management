@@ -1,7 +1,6 @@
 // native packages
 import fs from "fs";
 import path from "path";
-import util from "util";
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -77,7 +76,7 @@ router.post(
           semester,
           branch,
           examType,
-        }
+        },
       );
 
       // save to DB
@@ -88,7 +87,7 @@ router.post(
       console.log(err);
       res.status(500).json({ msg: err.message });
     }
-  }
+  },
 );
 
 // @route   POST /api/file/upload-student-file
@@ -115,7 +114,7 @@ router.post(
           session,
           branch,
           createdBy: req.admin.email,
-        }
+        },
       );
 
       // save to DB
@@ -126,7 +125,7 @@ router.post(
       console.log(err);
       res.status(500).json({ msg: err.message });
     }
-  }
+  },
 );
 
 // @route   POST /api/file/get-student-file-template
@@ -139,7 +138,7 @@ router.get("/get-student-file-template", adminAuth, (req, res) => {
       "../../",
       "files",
       "templates",
-      "student-file-template.xlsx"
+      "student-file-template.xlsx",
     );
     return res.status(200).download(filePath);
   } catch (err) {
@@ -157,7 +156,7 @@ router.get("/get-student-file-sample", adminAuth, (req, res) => {
       "../../",
       "files",
       "samples",
-      "student-file-sample.xlsx"
+      "student-file-sample.xlsx",
     );
     return res.status(200).download(filePath);
   } catch (err) {
@@ -175,7 +174,7 @@ router.get("/get-result-file-template", adminAuth, (req, res) => {
       "../../",
       "files",
       "templates",
-      "result-file-template.xlsx"
+      "result-file-template.xlsx",
     );
     return res.download(filePath);
   } catch (err) {
@@ -193,7 +192,7 @@ router.get("/get-result-file-sample", adminAuth, (req, res) => {
       "../../",
       "files",
       "samples",
-      "result-file-sample.xlsx"
+      "result-file-sample.xlsx",
     );
     return res.status(200).download(filePath);
   } catch (err) {
@@ -242,7 +241,7 @@ function parseResultExcelData(filePath, formData) {
       const subjects = Object.keys(res).map((key) => {
         // find correct subject from <legend>
         const sub = legend.find(
-          (legendSub) => legendSub["Subject Code"] === key
+          (legendSub) => legendSub["Subject Code"] === key,
         );
 
         // store req values
